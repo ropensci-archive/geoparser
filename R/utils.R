@@ -1,7 +1,7 @@
 #' @importFrom httr content POST add_headers
 #' @importFrom jsonlite prettify fromJSON
-#' @importFrom tidyr unite
-#' @importFrom dplyr "%>%" group_by mutate
+#' @importFrom tidyr unite_
+#' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup
 #' @importFrom lazyeval interp
 
 # status check
