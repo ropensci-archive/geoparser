@@ -1,0 +1,14 @@
+Package: geoparser
+Type: Package
+Title: Interface to the Geoparser.io API
+Version: 0.1.0
+Authors@R: person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre"))
+Description: This packages accesses the Geoparser.io API which is a web service
+    that identifies places mentioned in text, disambiguates those places, and
+    returns GeoJSON with detailed metadata about the places found in the text.
+License: GPL (>= 2)
+LazyData: TRUE
+URL: http://github.com/masalmon/geoparser
+BugReports: http://github.com/masalmon/geoparser/issues
+Encoding: UTF-8
+RoxygenNote: 5.0.1
