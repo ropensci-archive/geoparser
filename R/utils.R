@@ -7,8 +7,7 @@
 # status check
 geoparser_check <- function(req) {
   if (req$status_code < 400) return(invisible())
-  message <- code_message$message[code_message$code == req$status_code]
-  stop("HTTP failure: ", req$status_code, "\n", message, call. = FALSE)
+  stop("HTTP failure: ", req$status_code, call. = FALSE)
 }
 
 

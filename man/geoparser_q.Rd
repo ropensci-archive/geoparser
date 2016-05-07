@@ -33,11 +33,13 @@ The second data.frame contains the results and is called results:
 }
 }
 \description{
-Geoparser query
+The function calls the geoparser.io API which identifies places mentioned in the input text, disambiguates those places, and returns data about the places found in the text.
 }
 \details{
 To get an API key, you need to register at \url{https://geoparser.io/pricing.html}.
-With an hobbyist account, you can make up to 1,000 calls a month to the API.
+With an hobbyist account, you can make up to 1,000 calls a month to the API. For ease of use, save your API key as an environment variable as described at https://stat545-ubc.github.io/bit003_api-key-env-var.html.
+
+The package will conveniently look for your API key using `Sys.getenv("GEOPARSER_KEY")` so if your API key is an environment variable called "GEOPARSER_KEY" you don't need to input it manually.
 }
 \examples{
 geoparser_q(text_input = "I was born in Vannes but I live in Barcelona.")
