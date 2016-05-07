@@ -1,5 +1,8 @@
 #' @importFrom httr content POST add_headers
 #' @importFrom jsonlite prettify fromJSON
+#' @importFrom tidyr unite
+#' @importFrom dplyr "%>%" group_by mutate
+#' @importFrom lazyeval interp
 
 # status check
 geoparser_check <- function(req) {
@@ -33,7 +36,6 @@ geoparser_parse <- function(req) {
   temp <- jsonlite::fromJSON(text,
                              simplifyVector = FALSE)
 
-
   results <- lapply(temp$features, unlist)
   results <- lapply(results, as.data.frame)
   results <- lapply(results, t)
@@ -44,8 +46,47 @@ geoparser_parse <- function(req) {
   results$geometry.coordinates1 <- as.numeric(
     as.character(results$geometry.coordinates1))
 
+  which_ref <- which(grepl("references", names(results)))
+  first_ind <- which_ref[which(which_ref %% 2 == 1)]
+  results <- unite_(results,
+                    "start",
+                    names(results)[first_ind])
+  which_ref <- which(grepl("references", names(results)))
+  results <- unite_(results,
+                    "end",
+                    names(results)[which_ref])
+
+  results <- function_df(results)
+  print(results)
+
   list(properties = as.data.frame(temp$properties),
        results = results[, 2:ncol(results)])
+}
+
+# function for transforming start and end
+function_df <- function(df){
+  temp <- lapply(df$start, strsplit, "_")
+  temp <- lapply(temp, unlist)
+  temp <- lapply(temp, as.numeric)
+
+  lengths <- unlist(lapply(temp, length))
+
+  df <- df[rep(1:nrow(df), lengths), ] %>%
+    group_by(start) %>%
+    mutate_(number = interp(quote(1:n()))) %>%
+    group_by(start)  %>%
+    mutate_(reference1 = interp(
+      quote(
+        as.numeric(strsplit(start[1], "_")[[1]][number]))))  %>%
+    mutate_(reference2 = interp(
+      quote(
+        as.numeric(strsplit(end[1], "_")[[1]][number])))) %>%
+    select_(interp(quote(- start))) %>%
+    select_(interp(quote(- end))) %>%
+    ungroup()
+
+  df
+
 }
 
 # base URL for all queries
@@ -65,6 +106,7 @@ geoparser_get <- function(query_par){
        body = paste0("inputText=", URLencode(query_par$inputText))
   )
 }
+
 
 #' Retrieve Geoparser.io API key
 #'

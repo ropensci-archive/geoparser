@@ -9,7 +9,7 @@
 #' @details To get an API key, you need to register at \url{https://geoparser.io/pricing.html}.
 #' With an hobbyist account, you can make up to 1,000 calls a month to the API.
 #'
-#' @return A list of 2 data.frame (dplyr tbl_df). The first one is called properties and contains
+#' @return A list of 2 data.frames (dplyr tbl_df). The first one is called properties and contains
 #' \itemize{
 #' \item the apiVersion called apiVersion
 #' \item the source of the results

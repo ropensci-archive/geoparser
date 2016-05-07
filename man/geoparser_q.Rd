@@ -9,14 +9,14 @@ geoparser_q(text_input, key = geoparser_key())
 \arguments{
 \item{text_input}{A string, whose size must be smaller than 8 KB. See \code{nchar(text_input, type = "bytes")}.}
 
-\item{key}{Your Geoparser.io key}
+\item{key}{Your Geoparser.io key.}
 }
 \value{
-A list of 2 data.frame (dplyr tbl_df). The first one is called properties and contains
+A list of 2 data.frames (dplyr tbl_df). The first one is called properties and contains
 \itemize{
 \item the apiVersion called apiVersion
 \item the source of the results
-\item the id of the qyuery
+\item the id of the query
 }
 The second data.frame contains the results and is called results:
 \itemize{

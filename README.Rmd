@@ -20,13 +20,33 @@ install_github("masalmon/geoparser")
 
 ```
 
-This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns GeoJSON with detailed metadata about the places found in the text.
+This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
 
-To get an API key, you need to register at \url{https://geoparser.io/pricing.html}. With an hobbyist account, you can make up to 1,000 calls a month to the API. For ease of use, save your API key as an environment variable as described at https://stat545-ubc.github.io/bit003_api-key-env-var.html.
+To get an API key, you need to register at https://geoparser.io/pricing.html. With an hobbyist account, you can make up to 1,000 calls a month to the API. For ease of use, save your API key as an environment variable as described at https://stat545-ubc.github.io/bit003_api-key-env-var.html.
 
 The package will conveniently look for your API key using `Sys.getenv("GEOPARSER_KEY")` so if your API key is an environment variable called "GEOPARSER_KEY" you don't need to input it manually.
 
 # Geoparsing
+
+You need to input a text whose size is less than 8kB.
+
+The output is list of 2 data.frames (dplyr tbl_df). The first one is called properties and contains
+ 
+* the apiVersion called apiVersion
+* the source of the results
+* the id of the query
+
+The second data.frame contains the results and is called results:
+* properties.country is the ISO-3166 2-letter country code for the country in which this place is located, or NULL for features outside any sovereign territory.
+* properties.references is an array of arrays, each element of which consists of two integers indicating the start (index of the first character in the place reference) and end (index of the first character after the place reference) of each reference to the this place name found in the input text.
+* properties.confidence is a confidence score produced by the place name disambiguation algorithm. Currently returns a placeholder value; subject to change.
+* properties.name is the best name for the specified location, with a preference for official/short name forms (e.g., "New York" over "NYC," and "California" over "State of California"), which may be different from exactly what appears in the text.
+ * properties.admin1 is a code representing the state/province-level administrative division containing this place. (From GeoNames.org: "Most adm1 are FIPS codes. ISO codes are used for US, CH, BE and ME. UK and Greece are using an additional level between country and fips code. The code '00' stands for general features where no specific adm1 code is defined.")
+ * properties.type is a text description of the geographic feature type — see GeoNames.org for a complete list. Subject to change.
+ * geometry.type is the type of the geographical feature, e.g. "Point"
+ * geometry.coordinates1 is the longitude
+ * geometry.coordinates1 is the latitude
+
 
 ```{r, message=FALSE, warning=FALSE}
 library("geoparser")
