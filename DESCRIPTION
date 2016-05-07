@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre"))
 Description: This packages accesses the Geoparser.io API which is a web service
     that identifies places mentioned in text, disambiguates those places, and
-    returns GeoJSON with detailed metadata about the places found in the text.
+    returns detailed data about the places found in the text.
 License: GPL (>= 2)
 LazyData: TRUE
 URL: http://github.com/masalmon/geoparser
