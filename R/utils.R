@@ -57,7 +57,6 @@ geoparser_parse <- function(req) {
                     names(results)[which_ref])
 
   results <- function_df(results)
-  print(results)
 
   list(properties = as.data.frame(temp$properties),
        results = results[, 2:ncol(results)])

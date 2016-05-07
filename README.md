@@ -55,25 +55,11 @@ The second data.frame contains the results and is called results:
 ``` r
 library("geoparser")
 output <- geoparser_q("I was born in Vannes and I live in Barcelona")
-```
-
-    ## Source: local data frame [2 x 14]
-    ## 
-    ##   start    type properties.country properties.confidence properties.name
-    ##   (chr)  (fctr)              (chr)                (fctr)           (chr)
-    ## 1    14 Feature                 FR                     1          Vannes
-    ## 2    35 Feature                 ES                     1       Barcelona
-    ## Variables not shown: properties.admin1 (chr), properties.type (chr), id
-    ##   (chr), geometry.type (fctr), geometry.coordinates1 (dbl),
-    ##   geometry.coordinates2 (dbl), number (int), reference1 (dbl), reference2
-    ##   (dbl)
-
-``` r
 output$properties
 ```
 
     ##   apiVersion       source                    id
-    ## 1      0.3.4 geoparser.io KNqOJAJh6Ky4s266wBxpx
+    ## 1      0.3.4 geoparser.io BDx1bAbcrXV3u5rrZ1ALn
 
 ``` r
 knitr::kable(output$results)
