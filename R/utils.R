@@ -36,33 +36,38 @@ geoparser_parse <- function(req) {
                                 call. = FALSE)
   temp <- jsonlite::fromJSON(text,
                              simplifyVector = FALSE)
+  if(length(temp$features) != 0){
+    results <- lapply(temp$features, unlist)
+    results <- lapply(results, as.data.frame)
+    results <- lapply(results, t)
+    results <- lapply(results, as.data.frame)
+    results <- suppressWarnings(dplyr::bind_rows(results))
+    results$geometry.coordinates2 <- as.numeric(
+      as.character(results$geometry.coordinates2))
+    results$geometry.coordinates1 <- as.numeric(
+      as.character(results$geometry.coordinates1))
 
-  results <- lapply(temp$features, unlist)
-  results <- lapply(results, as.data.frame)
-  results <- lapply(results, t)
-  results <- lapply(results, as.data.frame)
-  results <- suppressWarnings(dplyr::bind_rows(results))
-  results$geometry.coordinates2 <- as.numeric(
-    as.character(results$geometry.coordinates2))
-  results$geometry.coordinates1 <- as.numeric(
-    as.character(results$geometry.coordinates1))
+    which_ref <- which(grepl("references", names(results)))
+    first_ind <- which_ref[which(which_ref %% 2 == 1)]
+    results <- unite_(results,
+                      "start",
+                      names(results)[first_ind])
+    which_ref <- which(grepl("references", names(results)))
+    results <- unite_(results,
+                      "end",
+                      names(results)[which_ref])
 
-  which_ref <- which(grepl("references", names(results)))
-  first_ind <- which_ref[which(which_ref %% 2 == 1)]
-  results <- unite_(results,
-                    "start",
-                    names(results)[first_ind])
-  which_ref <- which(grepl("references", names(results)))
-  results <- unite_(results,
-                    "end",
-                    names(results)[which_ref])
+    results <- function_df(results)
 
-  results <- function_df(results)
+    names(results) <- gsub("properties\\.", "", names(results))
+    results <- results[, 3:ncol(results)]
+  }else{
+    results <- tbl_df(data.frame(NULL))
+  }
 
-  names(results) <- gsub("properties\\.", "", names(results))
 
   list(properties = tbl_df(as.data.frame(temp$properties)),
-       results = results[, 3:ncol(results)])
+       results = results)
 }
 
 function_na <- function(vec){
