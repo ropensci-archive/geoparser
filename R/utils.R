@@ -1,7 +1,7 @@
 #' @importFrom httr content POST add_headers
 #' @importFrom jsonlite prettify fromJSON
 #' @importFrom tidyr unite_
-#' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup
+#' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup tbl_df
 #' @importFrom lazyeval interp
 
 # status check
@@ -58,8 +58,14 @@ geoparser_parse <- function(req) {
 
   results <- function_df(results)
 
-  list(properties = as.data.frame(temp$properties),
+  names(results) <- gsub("properties\\.", "", names(results))
+
+  list(properties = tbl_df(as.data.frame(temp$properties)),
        results = results[, 2:ncol(results)])
+}
+
+function_na <- function(vec){
+  sum(!is.na(vec))
 }
 
 # function for transforming start and end
@@ -68,7 +74,7 @@ function_df <- function(df){
   temp <- lapply(temp, unlist)
   temp <- lapply(temp, as.numeric)
 
-  lengths <- unlist(lapply(temp, length))
+  lengths <- unlist(lapply(temp, function_na))
 
   df <- df[rep(1:nrow(df), lengths), ] %>%
     group_by(start) %>%
