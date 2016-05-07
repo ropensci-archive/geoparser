@@ -12,3 +12,5 @@ URL: http://github.com/masalmon/geoparser
 BugReports: http://github.com/masalmon/geoparser/issues
 Encoding: UTF-8
 RoxygenNote: 5.0.1
+Suggests: testthat
+Depends: dplyr, httr, jsonlite, lazyeval, tidyr
