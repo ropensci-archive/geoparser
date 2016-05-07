@@ -12,7 +12,24 @@ geoparser_q(text_input, key = geoparser_key())
 \item{key}{Your Geoparser.io key}
 }
 \value{
-A data.frame (dplyr tbl_df)
+A list of 2 data.frame (dplyr tbl_df). The first one is called properties and contains
+\itemize{
+\item the apiVersion called apiVersion
+\item the source of the results
+\item the id of the qyuery
+}
+The second data.frame contains the results and is called results:
+\itemize{
+\item properties.country is the ISO-3166 2-letter country code for the country in which this place is located, or NULL for features outside any sovereign territory.
+\item properties.references is an array of arrays, each element of which consists of two integers indicating the start (index of the first character in the place reference) and end (index of the first character after the place reference) of each reference to the this place name found in the input text.
+\item properties.confidence is a confidence score produced by the place name disambiguation algorithm. Currently returns a placeholder value; subject to change.
+\item properties.name is the best name for the specified location, with a preference for official/short name forms (e.g., "New York" over "NYC," and "California" over "State of California"), which may be different from exactly what appears in the text.
+\item properties.admin1 is a code representing the state/province-level administrative division containing this place. (From GeoNames.org: "Most adm1 are FIPS codes. ISO codes are used for US, CH, BE and ME. UK and Greece are using an additional level between country and fips code. The code '00' stands for general features where no specific adm1 code is defined.")
+\item properties.type is a text description of the geographic feature type — see GeoNames.org for a complete list. Subject to change.
+\item geometry.type is the type of the geographical feature, e.g. "Point"
+\item geometry.coordinates1 is the longitude
+\item geometry.coordinates1 is the latitude
+}
 }
 \description{
 Geoparser query

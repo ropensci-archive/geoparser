@@ -27,20 +27,25 @@ geoparser_query_check <- function(text_input, key){
 
 # parse results
 geoparser_parse <- function(req) {
-  text <- content(req, as = "text")
+  text <- httr::content(req, as = "text")
   if (identical(text, "")) stop("No output to parse",
                                 call. = FALSE)
   temp <- jsonlite::fromJSON(text,
                              simplifyVector = FALSE)
+
 
   results <- lapply(temp$features, unlist)
   results <- lapply(results, as.data.frame)
   results <- lapply(results, t)
   results <- lapply(results, as.data.frame)
   results <- suppressWarnings(dplyr::bind_rows(results))
+  results$geometry.coordinates2 <- as.numeric(
+    as.character(results$geometry.coordinates2))
+  results$geometry.coordinates1 <- as.numeric(
+    as.character(results$geometry.coordinates1))
 
-  list(results = results,
-       properties = temp$properties)
+  list(properties = as.data.frame(temp$properties),
+       results = results[, 2:ncol(results)])
 }
 
 # base URL for all queries
