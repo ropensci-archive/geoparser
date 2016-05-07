@@ -1,7 +1,7 @@
 #' @importFrom httr content POST add_headers
 #' @importFrom jsonlite prettify fromJSON
 #' @importFrom tidyr unite_
-#' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup tbl_df
+#' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup tbl_df rename_
 #' @importFrom lazyeval interp
 
 # status check
@@ -30,7 +30,8 @@ geoparser_query_check <- function(text_input, key){
 
 # parse results
 geoparser_parse <- function(req) {
-  text <- httr::content(req, as = "text")
+  text <- httr::content(req, as = "text",
+                        encoding = "UTF-8")
   if (identical(text, "")) stop("No output to parse",
                                 call. = FALSE)
   temp <- jsonlite::fromJSON(text,
@@ -61,7 +62,7 @@ geoparser_parse <- function(req) {
   names(results) <- gsub("properties\\.", "", names(results))
 
   list(properties = tbl_df(as.data.frame(temp$properties)),
-       results = results[, 2:ncol(results)])
+       results = results[, 3:ncol(results)])
 }
 
 function_na <- function(vec){
@@ -72,7 +73,7 @@ function_na <- function(vec){
 function_df <- function(df){
   temp <- lapply(df$start, strsplit, "_")
   temp <- lapply(temp, unlist)
-  temp <- lapply(temp, as.numeric)
+  temp <- suppressWarnings(lapply(temp, as.numeric))
 
   lengths <- unlist(lapply(temp, function_na))
 
@@ -86,11 +87,13 @@ function_df <- function(df){
     mutate_(reference2 = interp(
       quote(
         as.numeric(strsplit(end[1], "_")[[1]][number])))) %>%
-    select_(interp(quote(- start))) %>%
-    select_(interp(quote(- end))) %>%
+    select_(interp(quote(- start)))  %>%
+    select_(interp(quote(- end)))%>%
     ungroup()
 
-  df
+  df %>%
+    rename_(longitude = interp(quote(geometry.coordinates1))) %>%
+    rename_(latitude = interp(quote(geometry.coordinates2)))
 
 }
 
