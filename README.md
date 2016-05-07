@@ -1,6 +1,8 @@
 geoparser
 =========
 
+[![Build Status](https://travis-ci.org/masalmon/geoparser.svg?branch=master)](https://travis-ci.org/masalmon/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/masalmon/geoparser)
+
 Installation
 ============
 
@@ -62,7 +64,7 @@ output$properties
     ## 
     ##   apiVersion       source                    id
     ##       (fctr)       (fctr)                (fctr)
-    ## 1      0.3.4 geoparser.io 2dZK2x2FMBJltewwYY11J
+    ## 1      0.3.4 geoparser.io q6xeRLRuqoNbTZddW7xGV
 
 ``` r
 knitr::kable(output$results)
