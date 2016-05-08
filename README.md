@@ -52,7 +52,7 @@ output$properties
     ## 
     ##   apiVersion       source                    id
     ##       (fctr)       (fctr)                (fctr)
-    ## 1      0.3.4 geoparser.io YdZWlKlFGyJaudrrpYLxK
+    ## 1      0.3.4 geoparser.io q6xeRLRuqoNbTZddRN3Qb
 
 The second data.frame contains the results and is called results:
 
@@ -100,13 +100,15 @@ output2 <- geoparser_q("I like Paris and Paris and Paris and yeah it is in Franc
 knitr::kable(output2$results)
 ```
 
-| country     | confidence    | name     | admin1    | type                          | geometry.type |  longitude|  latitude|  reference1|  reference2|
-|:------------|:--------------|:---------|:----------|:------------------------------|:--------------|----------:|---------:|-----------:|-----------:|
-| FR          | 1             | Paris    | A8        | capital of a political entity | Point         |     2.3488|  48.85341|           7|          12|
-| FR          | 1             | Paris    | A8        | capital of a political entity | Point         |     2.3488|  48.85341|          17|          22|
-| FR          | 1             | Paris    | A8        | capital of a political entity | Point         |     2.3488|  48.85341|          27|          32|
-| FR          | 1             | France   | 00        | independent political entity  | Point         |     2.0000|  46.00000|          51|          57|
-| \# What hap | pens if there | are no r | esults fo | r the text?                   |               |           |          |            |            |
+| country | confidence | name   | admin1 | type                          | geometry.type |  longitude|  latitude|  reference1|  reference2|
+|:--------|:-----------|:-------|:-------|:------------------------------|:--------------|----------:|---------:|-----------:|-----------:|
+| FR      | 1          | Paris  | A8     | capital of a political entity | Point         |     2.3488|  48.85341|           7|          12|
+| FR      | 1          | Paris  | A8     | capital of a political entity | Point         |     2.3488|  48.85341|          17|          22|
+| FR      | 1          | Paris  | A8     | capital of a political entity | Point         |     2.3488|  48.85341|          27|          32|
+| FR      | 1          | France | 00     | independent political entity  | Point         |     2.0000|  46.00000|          51|          57|
+
+What happens if there are no results for the text?
+==================================================
 
 In this case the results table is empty.
 
