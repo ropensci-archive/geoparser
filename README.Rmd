@@ -45,7 +45,7 @@ output <- geoparser_q("I was born in Vannes and I live in Barcelona")
 
 ```
 
-The output is list of 2 data.frames (`dplyr tbl_df`). The first one is called  and contains
+The output is list of 2 data.frames (`dplyr tbl_df`). The first one is called `properties`  and contains
  
 * the api version called `apiVersion`
 
@@ -55,7 +55,6 @@ The output is list of 2 data.frames (`dplyr tbl_df`). The first one is called  a
 
 ```{r, message=FALSE, warning=FALSE}
 output$properties
-knitr::kable(output$results)
 
 ```
 
