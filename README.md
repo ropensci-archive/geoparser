@@ -36,7 +36,7 @@ library("geoparser")
 output <- geoparser_q("I was born in Vannes and I live in Barcelona")
 ```
 
-The output is list of 2 data.frames (`dplyr tbl_df`). The first one is called and contains
+The output is list of 2 data.frames (`dplyr tbl_df`). The first one is called `properties` and contains
 
 -   the api version called `apiVersion`
 
@@ -52,16 +52,7 @@ output$properties
     ## 
     ##   apiVersion       source                    id
     ##       (fctr)       (fctr)                (fctr)
-    ## 1      0.3.4 geoparser.io YdZWlKlFGyJaudrrpLWNZ
-
-``` r
-knitr::kable(output$results)
-```
-
-| country | confidence | name      | admin1 | type                                           | geometry.type |  longitude|  latitude|  reference1|  reference2|
-|:--------|:-----------|:----------|:-------|:-----------------------------------------------|:--------------|----------:|---------:|-----------:|-----------:|
-| FR      | 1          | Vannes    | A2     | seat of a second-order administrative division | Point         |   -2.75000|  47.66667|          14|          20|
-| ES      | 1          | Barcelona | 56     | seat of a first-order administrative division  | Point         |    2.15899|  41.38879|          35|          44|
+    ## 1      0.3.4 geoparser.io 15bNQyQuRjdoHVZZJWOOw
 
 The second data.frame contains the results and is called results:
 
