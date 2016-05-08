@@ -52,7 +52,7 @@ output$properties
     ## 
     ##   apiVersion       source                    id
     ##       (fctr)       (fctr)                (fctr)
-    ## 1      0.3.4 geoparser.io q6xeRLRuqoNbTZddRN3Qb
+    ## 1      0.3.4 geoparser.io 15bNQyQuRjdoHVZZWqx83
 
 The second data.frame contains the results and is called results:
 
@@ -122,9 +122,9 @@ output_nothing$results
 How well does it work?
 ======================
 
-Well ask the geoparser.io team, because I don't know! Please note that the API is currently in beta. I guess for now the best is to try things out!
+The API team has tested the API un-scientifically and noticed a performance similar to other existing geoparsing tools. A scientific evaluation is under way. The public Geoparser.io API works best with professionally-written, professionally-edited news articles, but for Enterprise customers the API team says that it can be tuned/tweaked for other kinds of input (e.g., social media).
 
-Let's test the API with a difficult text.
+Let's look at this example:
 
 ``` r
 output3 <- geoparser_q("I live in Hyderabad, India. My mother would prefer living in Hyderabad near Islamabad!")
@@ -138,19 +138,7 @@ knitr::kable(output3$results)
 | IN      | 1          | India      | 00     | independent political entity                  | Point         |   79.00000|  22.00000|          21|          26|
 | BD      | 1          | Chittagong | 84     | seat of a first-order administrative division | Point         |   91.83168|  22.33840|          76|          85|
 
-Or a text with more info.
-
-``` r
-output4 <- geoparser_q("I live in Hyderabad, India. My mother would prefer living in Hyderabad, the city in Pakistan!")
-knitr::kable(output4$results)
-```
-
-| country | confidence | name      | admin1 | type                                          | geometry.type |  longitude|  latitude|  reference1|  reference2|
-|:--------|:-----------|:----------|:-------|:----------------------------------------------|:--------------|----------:|---------:|-----------:|-----------:|
-| IN      | 1          | Hyderabad | 40     | seat of a first-order administrative division | Point         |   78.45636|  17.38405|          10|          19|
-| IN      | 1          | Hyderabad | 40     | seat of a first-order administrative division | Point         |   78.45636|  17.38405|          61|          70|
-| PK      | 1          | Pakistan  | 0      | independent political entity                  | Point         |   70.00000|  30.00000|          84|          92|
-| IN      | 1          | India     | 00     | independent political entity                  | Point         |   79.00000|  22.00000|          21|          26|
+Geoparser.io typically assumes two mentions of the same name appearing so closely together in the same input text refer to the same place. So, because it saw "Hyderabad" (India) in the first sentence, it assumes "Hyderabad" in the second sentence refers to the same city. Also, "Islamabad" is an alternate name for Chittagong, which has a higher population than Islamabad (Pakistan) and is closer to Hyderabad (India).
 
 What can I do with the results?
 ===============================
