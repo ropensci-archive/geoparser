@@ -3,6 +3,8 @@ geoparser
 
 [![Build Status](https://travis-ci.org/masalmon/geoparser.svg?branch=master)](https://travis-ci.org/masalmon/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/masalmon/geoparser) [![codecov](https://codecov.io/gh/masalmon/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/masalmon/geoparser)
 
+This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
+
 Installation
 ============
 
@@ -12,8 +14,6 @@ To install the package, you will need the devtools package.
 library("devtools")
 install_github("masalmon/geoparser")
 ```
-
-This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
 
 To get an API key, you need to register at <https://geoparser.io/pricing.html>. With an hobbyist account, you can make up to 1,000 calls a month to the API. Please note that the API is currently in beta and thus totally free! For ease of use, save your API key as an environment variable as described at <https://stat545-ubc.github.io/bit003_api-key-env-var.html>.
 
@@ -52,11 +52,20 @@ output$properties
     ## 
     ##   apiVersion       source                    id
     ##       (fctr)       (fctr)                (fctr)
-    ## 1      0.3.4 geoparser.io 15bNQyQuRjdoHVZZJWOOw
+    ## 1      0.3.4 geoparser.io LNL5MVMhldpOc8QQYpW29
 
 The second data.frame contains the results and is called results:
 
--   `country` is the ISO-3166 2-letter country code for the country in which this place is located, or NULL for features outside any sovereign territory.
+``` r
+knitr::kable(output$results)
+```
+
+| country | confidence | name      | admin1 | type                                           | geometry.type |  longitude|  latitude|  reference1|  reference2|
+|:--------|:-----------|:----------|:-------|:-----------------------------------------------|:--------------|----------:|---------:|-----------:|-----------:|
+| FR      | 1          | Vannes    | A2     | seat of a second-order administrative division | Point         |   -2.75000|  47.66667|          14|          20|
+| ES      | 1          | Barcelona | 56     | seat of a first-order administrative division  | Point         |    2.15899|  41.38879|          35|          44|
+
+-   `country` is the [ISO-3166 2-letter country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the country in which this place is located, or NULL for features outside any sovereign territory.
 
 -   `confidence` is a confidence score produced by the place name disambiguation algorithm. Currently returns a placeholder value; subject to change.
 
@@ -75,15 +84,6 @@ The second data.frame contains the results and is called results:
 -   `reference1` is the start (index of the first character in the place reference) -- each reference to this place name found in the input text is on one distinct line.
 
 -   `reference2` the end (index of the first character after the place reference) -- each reference to the place name found in the input text is on one distinct line.
-
-``` r
-knitr::kable(output$results)
-```
-
-| country | confidence | name      | admin1 | type                                           | geometry.type |  longitude|  latitude|  reference1|  reference2|
-|:--------|:-----------|:----------|:-------|:-----------------------------------------------|:--------------|----------:|---------:|-----------:|-----------:|
-| FR      | 1          | Vannes    | A2     | seat of a second-order administrative division | Point         |   -2.75000|  47.66667|          14|          20|
-| ES      | 1          | Barcelona | 56     | seat of a first-order administrative division  | Point         |    2.15899|  41.38879|          35|          44|
 
 How does it work?
 =================

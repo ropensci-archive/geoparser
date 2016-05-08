@@ -23,7 +23,7 @@
 #' }
 #' The second data.frame contains the results and is called results:
 #' \itemize{
-#' \item properties.country ISO-3166 2-letter country code for the country in which this place is located, or NULL for features outside any sovereign territory.
+#' \item properties.country ISO-3166 2-letter country code for the country in which this place is located (see \url{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2}), or NULL for features outside any sovereign territory.
 #' \item properties.confidence A confidence score produced by the place name disambiguation algorithm. Currently returns a placeholder value; subject to change.
 #' \item properties.name Best name for the specified location, with a preference for official/short name forms (e.g., "New York" over "NYC," and "California" over "State of California"), which may be different from exactly what appears in the text.
 #' \item properties.admin1 A code representing the state/province-level administrative division containing this place. (From GeoNames.org: "Most adm1 are FIPS codes. ISO codes are used for US, CH, BE and ME. UK and Greece are using an additional level between country and fips code. The code '00' stands for general features where no specific adm1 code is defined.")

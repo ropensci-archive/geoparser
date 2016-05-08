@@ -13,6 +13,9 @@ geoparser
 [![codecov](https://codecov.io/gh/masalmon/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/masalmon/geoparser)
 
 
+This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
+
+
 # Installation
 
 To install the package, you will need the devtools package.
@@ -22,8 +25,6 @@ library("devtools")
 install_github("masalmon/geoparser")
 
 ```
-
-This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
 
 To get an API key, you need to register at https://geoparser.io/pricing.html. With an hobbyist account, you can make up to 1,000 calls a month to the API.  Please note that the API is currently in beta and thus totally free! For ease of use, save your API key as an environment variable as described at https://stat545-ubc.github.io/bit003_api-key-env-var.html.
 
@@ -60,7 +61,13 @@ output$properties
 
 The second data.frame contains the results and is called results:
 
-* `country` is the ISO-3166 2-letter country code for the country in which this place is located, or NULL for features outside any sovereign territory.
+
+```{r, message=FALSE, warning=FALSE}
+knitr::kable(output$results)
+
+```
+
+* `country` is the [ISO-3166 2-letter country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the country in which this place is located, or NULL for features outside any sovereign territory.
 
 * `confidence` is a confidence score produced by the place name disambiguation algorithm. Currently returns a placeholder value; subject to change.
 
@@ -80,11 +87,6 @@ The second data.frame contains the results and is called results:
 
 *  `reference2` the end (index of the first character after the place reference) --  each reference to the place name found in the input text is on one distinct line.
 
-
-```{r, message=FALSE, warning=FALSE}
-knitr::kable(output$results)
-
-```
 
 # How does it work?
 
