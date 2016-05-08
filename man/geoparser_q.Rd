@@ -18,7 +18,7 @@ A list of 2 data.frames (dplyr tbl_df). The first one is called properties and c
 \item the source of the results
 \item the id of the query
 }
-The second data.frame contains the results and is called results:
+The second data.frame contains the results and is called results. If there are no results it is totally empty, otherwise:
 \itemize{
 \item properties.country ISO-3166 2-letter country code for the country in which this place is located (see \url{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2}), or NULL for features outside any sovereign territory.
 \item properties.confidence A confidence score produced by the place name disambiguation algorithm. Currently returns a placeholder value; subject to change.

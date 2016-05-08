@@ -52,7 +52,7 @@ output$properties
     ## 
     ##   apiVersion       source                    id
     ##       (fctr)       (fctr)                (fctr)
-    ## 1      0.3.4 geoparser.io LNL5MVMhldpOc8QQYpW29
+    ## 1      0.3.4 geoparser.io YdZWlKlFGyJaudrrpYLxK
 
 The second data.frame contains the results and is called results:
 
@@ -100,12 +100,22 @@ output2 <- geoparser_q("I like Paris and Paris and Paris and yeah it is in Franc
 knitr::kable(output2$results)
 ```
 
-| country | confidence | name   | admin1 | type                          | geometry.type |  longitude|  latitude|  reference1|  reference2|
-|:--------|:-----------|:-------|:-------|:------------------------------|:--------------|----------:|---------:|-----------:|-----------:|
-| FR      | 1          | Paris  | A8     | capital of a political entity | Point         |     2.3488|  48.85341|           7|          12|
-| FR      | 1          | Paris  | A8     | capital of a political entity | Point         |     2.3488|  48.85341|          17|          22|
-| FR      | 1          | Paris  | A8     | capital of a political entity | Point         |     2.3488|  48.85341|          27|          32|
-| FR      | 1          | France | 00     | independent political entity  | Point         |     2.0000|  46.00000|          51|          57|
+| country     | confidence    | name     | admin1    | type                          | geometry.type |  longitude|  latitude|  reference1|  reference2|
+|:------------|:--------------|:---------|:----------|:------------------------------|:--------------|----------:|---------:|-----------:|-----------:|
+| FR          | 1             | Paris    | A8        | capital of a political entity | Point         |     2.3488|  48.85341|           7|          12|
+| FR          | 1             | Paris    | A8        | capital of a political entity | Point         |     2.3488|  48.85341|          17|          22|
+| FR          | 1             | Paris    | A8        | capital of a political entity | Point         |     2.3488|  48.85341|          27|          32|
+| FR          | 1             | France   | 00        | independent political entity  | Point         |     2.0000|  46.00000|          51|          57|
+| \# What hap | pens if there | are no r | esults fo | r the text?                   |               |           |          |            |            |
+
+In this case the results table is empty.
+
+``` r
+output_nothing <- geoparser_q("No placename can be found.")
+output_nothing$results
+```
+
+    ## Source: local data frame [0 x 0]
 
 How well does it work?
 ======================
@@ -139,3 +149,8 @@ knitr::kable(output4$results)
 | IN      | 1          | Hyderabad | 40     | seat of a first-order administrative division | Point         |   78.45636|  17.38405|          61|          70|
 | PK      | 1          | Pakistan  | 0      | independent political entity                  | Point         |   70.00000|  30.00000|          84|          92|
 | IN      | 1          | India     | 00     | independent political entity                  | Point         |   79.00000|  22.00000|          21|          26|
+
+What can I do with the results?
+===============================
+
+You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) or [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) or anything you like. The API website provides [suggestions of use](https://geoparser.io/uses.html) for inspiration.

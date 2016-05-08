@@ -101,6 +101,15 @@ output2 <- geoparser_q("I like Paris and Paris and Paris and yeah it is in Franc
 knitr::kable(output2$results)
 
 ```
+# What happens if there are no results for the text?
+
+In this case the results table is empty.
+
+```{r}
+output_nothing <- geoparser_q("No placename can be found.")
+output_nothing$results
+
+```
 
 
 # How well does it work?
@@ -123,4 +132,6 @@ knitr::kable(output4$results)
 
 ```
 
+# What can I do with the results?
 
+You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) or [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) or anything you like. The API website provides [suggestions of use](https://geoparser.io/uses.html) for inspiration.
