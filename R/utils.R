@@ -94,7 +94,7 @@ function_df <- function(df){
     select_(interp(quote(- start))) %>%
     select_(interp(quote(- id))) %>%
     select_(interp(quote(- number)))  %>%
-    select_(interp(quote(- end)))%>%
+    select_(interp(quote(- end))) %>%
     ungroup()
 
   df %>%
