@@ -28,18 +28,20 @@ The second data.frame contains the results and is called results:
 \item geometry.type Type of the geographical feature, e.g. "Point".
 \item longitude Longitude.
 \item latitude Latitude.
-\item reference1 Start (index of the first character in the place reference) --  each reference to the this place name found in the input text is on one distinct line.
-\item reference2 End (index of the first character after the place reference) --  each reference to the this place name found in the input text is on one distinct line.
+\item reference1 Start (index of the first character in the place reference) --  each reference to this place name found in the input text is on one distinct line.
+\item reference2 End (index of the first character after the place reference) --  each reference to this place name found in the input text is on one distinct line.
 }
 }
 \description{
-The function calls the geoparser.io API which identifies places mentioned in the input text, disambiguates those places, and returns data about the places found in the text.
+The function calls the geoparser.io API which identifies places mentioned in the input text (in English), disambiguates those places, and returns data about the places found in the text.
 }
 \details{
 To get an API key, you need to register at \url{https://geoparser.io/pricing.html}.
 With an hobbyist account, you can make up to 1,000 calls a month to the API. For ease of use, save your API key as an environment variable as described at https://stat545-ubc.github.io/bit003_api-key-env-var.html.
 
 The package will conveniently look for your API key using `Sys.getenv("GEOPARSER_KEY")` so if your API key is an environment variable called "GEOPARSER_KEY" you don't need to input it manually.
+
+Geoparser.io works best on complete sentences in English. If you have a very short text, such as a partial address like "Auckland New Zealand," you probably want to use a geocoder tool instead of a geoparser. In R, you can use the opencage package for geocoding (\url{https://github.com/ropenscilabs/opencage})!
 }
 \examples{
 geoparser_q(text_input = "I was born in Vannes but I live in Barcelona.")

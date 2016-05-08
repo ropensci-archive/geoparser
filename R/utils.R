@@ -91,7 +91,9 @@ function_df <- function(df){
     mutate_(reference2 = interp(
       quote(
         as.numeric(strsplit(end[1], "_")[[1]][number])))) %>%
-    select_(interp(quote(- start)))  %>%
+    select_(interp(quote(- start))) %>%
+    select_(interp(quote(- id))) %>%
+    select_(interp(quote(- number)))  %>%
     select_(interp(quote(- end)))%>%
     ungroup()
 

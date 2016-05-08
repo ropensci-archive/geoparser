@@ -10,6 +10,7 @@ geoparser
 =============
 [![Build Status](https://travis-ci.org/masalmon/geoparser.svg?branch=master)](https://travis-ci.org/masalmon/geoparser)
 [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/masalmon/geoparser)
+[![codecov](https://codecov.io/gh/masalmon/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/masalmon/geoparser)
 
 
 # Installation
@@ -24,13 +25,25 @@ install_github("masalmon/geoparser")
 
 This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
 
-To get an API key, you need to register at https://geoparser.io/pricing.html. With an hobbyist account, you can make up to 1,000 calls a month to the API. For ease of use, save your API key as an environment variable as described at https://stat545-ubc.github.io/bit003_api-key-env-var.html.
+To get an API key, you need to register at https://geoparser.io/pricing.html. With an hobbyist account, you can make up to 1,000 calls a month to the API.  Please note that the API is currently in beta and thus totally free! For ease of use, save your API key as an environment variable as described at https://stat545-ubc.github.io/bit003_api-key-env-var.html.
 
 The package will conveniently look for your API key using `Sys.getenv("GEOPARSER_KEY")` so if your API key is an environment variable called "GEOPARSER_KEY" you don't need to input it manually.
 
-# Geoparsing
+# What is geoparsing?
+
+According to [Wikipedia](https://en.wikipedia.org/wiki/Geoparsing), geoparsing is the process of converting free-text descriptions of places (such as "Springfield") into unambiguous geographic identifiers (such as lat-lon coordinates). A geoparser is a tool that helps in this process. Geoparsing goes beyond geocoding in that, rather than analyzing structured location references like mailing addresses and numerical coordinates, geoparsing handles ambiguous place names in unstructured text.
+
+Geoparser.io works best on complete sentences in *English*. If you have a very short text, such as a partial address like "Auckland New Zealand," you probably want to use a geocoder tool instead of a geoparser. In R, you can use the [opencage](https://github.com/ropenscilabs/opencage) package for geocoding!
+
+# How to use the package?
 
 You need to input a text whose size is less than 8kB.
+
+```{r, message=FALSE, warning=FALSE}
+library("geoparser")
+output <- geoparser_q("I was born in Vannes and I live in Barcelona")
+
+```
 
 The output is list of 2 data.frames (`dplyr tbl_df`). The first one is called  and contains
  
@@ -39,6 +52,12 @@ The output is list of 2 data.frames (`dplyr tbl_df`). The first one is called  a
 * the `source` of the results
 
 * the `id` of the query
+
+```{r, message=FALSE, warning=FALSE}
+output$properties
+knitr::kable(output$results)
+
+```
 
 The second data.frame contains the results and is called results:
 
@@ -58,23 +77,49 @@ The second data.frame contains the results and is called results:
 
  * `latitude` is the latitude.
 
-* `reference1` is the start (index of the first character in the place reference) --  each reference to the this place name found in the input text is on one distinct line.
+* `reference1` is the start (index of the first character in the place reference) --  each reference to this place name found in the input text is on one distinct line.
 
-*  `reference2` the end (index of the first character after the place reference) --  each reference to the this place name found in the input text is on one distinct line.
+*  `reference2` the end (index of the first character after the place reference) --  each reference to the place name found in the input text is on one distinct line.
 
 
 ```{r, message=FALSE, warning=FALSE}
-library("geoparser")
-output <- geoparser_q("I was born in Vannes and I live in Barcelona")
-output$properties
 knitr::kable(output$results)
 
 ```
 
-If the input text contains several times the same placename, there is one line for each repetition, the each difference between lines being the values of `reference1` and `reference2`.
+# How does it work?
+
+The API uses the Geonames.org gazetteer data. Geoparser.io uses a variety of named entity recognition tools to extract location names from the raw text input, and then applies a proprietary disambiguation algorithm to resolve location names to specific gazetteer records.
+
+# What happens if the same place occurs several times in the text?
+
+If the input text contains several times the same placename, there is one line for each repetition, the only difference between lines being the values of `reference1` and `reference2`.
 
 ```{r}
 output2 <- geoparser_q("I like Paris and Paris and Paris and yeah it is in France!")
 knitr::kable(output2$results)
 
 ```
+
+
+# How well does it work?
+
+Well ask the geoparser.io team, because I don't know! Please note that the API is currently in beta. I guess for now the best is to try things out!
+
+Let's test the API with a difficult text.
+
+```{r}
+output3 <- geoparser_q("I live in Hyderabad, India. My mother would prefer living in Hyderabad near Islamabad!")
+knitr::kable(output3$results)
+
+```
+
+Or a text with more info.
+
+```{r}
+output4 <- geoparser_q("I live in Hyderabad, India. My mother would prefer living in Hyderabad, the city in Pakistan!")
+knitr::kable(output4$results)
+
+```
+
+
