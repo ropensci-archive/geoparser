@@ -25,7 +25,7 @@ geoparser_query_check <- function(text_input, key){
   }
 
   # check text
-  if(nchar(text_input) >= 8000){
+  if(nchar(text_input) >= 8192){
     stop("The size of text_input should be smaller than 8KB.", call. = FALSE)
     }
 
