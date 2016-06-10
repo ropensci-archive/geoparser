@@ -38,24 +38,24 @@
 #' The second \code{data.frame} contains the results and is called results.
 #' If there are no results it is totally empty, otherwise:
 #' \itemize{
-#' \item \code{properties.country} \url{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2}{ISO-3166 2-letter country code}
+#' \item \code{country} \href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2}{ISO-3166 2-letter country code}
 #' for the country in which this place is located or \code{NULL} for features
 #' outside any sovereign territory.
-#' \item \code{properties.confidence} A confidence score produced by the place
+#' \item \code{confidence} A confidence score produced by the place
 #' name disambiguation algorithm. \emph{Currently returns a placeholder value;
 #' subject to change}.
-#' \item \code{properties.name} Best name for the specified location, with a
+#' \item \code{name} Best name for the specified location, with a
 #' preference for official/short name forms (e.g., "\code{New York}" over
 #' "\code{NYC}," and "\code{California}" over "\code{State of California}"),
 #' which may be different from exactly what appears in the text.
-#' \item \code{properties.admin1} A code representing the state/province-level
+#' \item \code{admin1} A code representing the state/province-level
 #' administrative division containing this place. (From \code{GeoNames.org}:
 #' \emph{"Most adm1 are FIPS codes. ISO codes are used for US, CH, BE and ME.
 #' UK and Greece are using an additional level between country and FIPS code.
 #' The code '\code{00}' stands for general features where no specific adm1 code
 #' is defined.}")
-#' \item \code{properties.type} A text description of the geographic feature
-#' type — \emph{see \url{\code{GeoNames.org}} for a complete list. Subject to
+#' \item \code{type} A text description of the geographic feature
+#' type — \emph{see \url{http://www.geonames.org/} for a complete list. Subject to
 #' change}.
 #' \item \code{geometry.type} Type of the geographical feature, e.g.
 #' "\code{Point}".
