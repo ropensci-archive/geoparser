@@ -7,7 +7,7 @@
 geoparser_q(text_input, key = geoparser_key())
 }
 \arguments{
-\item{text_input}{A string, whose size must be smaller than 8 KB. See
+\item{text_input}{A vector of strings, where each size must be smaller than 8 KB. See
 \code{nchar(text_input, type = "bytes")}.}
 
 \item{key}{Your \code{geoparser.io} key.}
@@ -19,6 +19,7 @@ A list of 2 \code{data.frame}s (\code{dplyr::tbl_df}s). The first
 \item \code{apiVersion} the version of the API currently in use
 \item \code{source} the source of authority for the results
 \item \code{id} the unique id of the query
+\item \code{text_md5} MD5 hash of the text that was sent to the API.
 }
 The second \code{data.frame} contains the results and is called results.
 If there are no results it is totally empty, otherwise:
@@ -52,6 +53,7 @@ text is on one distinct line}.
 \item \code{reference2} End (index of the first character after the place
 reference) --  \emph{each reference to this place name found in the input
 text is on one distinct line}.
+\item \code{text_md5} MD5 hash of the text that was sent to the API.
 }
 }
 \description{
@@ -79,6 +81,8 @@ geocoding!
 }
 \examples{
 geoparser_q(text_input = "I was born in Vannes but I live in Barcelona.")
+geoparser_q(text_input = c("I was born in Vannes but I live in Barcelona.",
+"France is the most beautiful place in the world."))
 }
 \references{
 \href{https://geoparser.io/docs.html}{\code{Geoparser.io}

@@ -6,6 +6,7 @@
 #' @importFrom utils URLencode
 #' @importFrom purrr map map_df map_dbl
 #' @importFrom stringr str_split
+#' @importFrom digest digest
 
 # status check
 #' @noRd
@@ -27,7 +28,7 @@ geoparser_query_check <- function(text_input, key){
   }
 
   # check text
-  if(nchar(text_input) >= 8192){
+  if(any(nchar(text_input) >= 8192)){
     stop("The size of text_input should be smaller than 8KB.", call. = FALSE)
     }
 
@@ -70,7 +71,7 @@ geoparser_parse <- function(req) {
                              "end",
                              names(results)[which_ref])
     # end of the transformation for having 1 line per occurence
-    results <- function_df(results)
+    results <- suppressMessages(function_df(results))
 
     # make names nicer by erasing the "properties." they have
     # at the beginning
@@ -107,23 +108,23 @@ start <- NULL
 function_df <- function(df){
   lengths <- dplyr::select_(df, "start")
   lengths <- split(lengths, lengths$start)
-  lengths <-  purrr::map_dbl(lengths, function_na)
+  lengths <-  rev(purrr::map_dbl(lengths, function_na))
 
-  df <- df[rep(1:nrow(df), lengths), ] %>%
-    dplyr::group_by(start) %>%
-    dplyr::mutate_(number = lazyeval::interp(quote(1:n()))) %>%
-    dplyr::group_by(start)  %>%
-    dplyr::mutate_(reference1 = lazyeval::interp(
+  df <- df[rep(1:nrow(df), lengths), ]
+  df <- dplyr::group_by(df, start)
+  df <- dplyr::mutate_(df, number = lazyeval::interp(quote(1:n())))
+  df <- dplyr::group_by(df, start)
+  df <- dplyr::mutate_(df, reference1 = lazyeval::interp(
       quote(
-        as.numeric(strsplit(start[1], "_")[[1]][number]))))  %>%
-    dplyr::mutate_(reference2 = interp(
-      quote(
-        as.numeric(strsplit(end[1], "_")[[1]][number])))) %>%
-    dplyr::select_(lazyeval::interp(quote(- start))) %>%
-    dplyr::select_(lazyeval::interp(quote(- id))) %>%
-    dplyr::select_(lazyeval::interp(quote(- number)))  %>%
-    dplyr::select_(lazyeval::interp(quote(- end))) %>%
-    dplyr::ungroup()
+        as.numeric(strsplit(start[1], "_")[[1]][number]))))
+  df <- dplyr::mutate_(df, reference2 = interp(
+      df <- quote(
+        as.numeric(strsplit(end[1], "_")[[1]][number]))))
+  df <- dplyr::select_(df, lazyeval::interp(quote(- start)))
+  df <- dplyr::select_(df, lazyeval::interp(quote(- id)))
+  df <- dplyr::select_(df, lazyeval::interp(quote(- number)))
+  df <- dplyr::select_(df, lazyeval::interp(quote(- end)))
+  df <- dplyr::ungroup(df)
 
   df %>%
     dplyr::rename_(longitude =
@@ -170,4 +171,29 @@ geoparser_key <- function(quiet = TRUE) {
     message("Using Geoparser.io API Key from envvar GEOPARSER_KEY")
   }
   return(pat)
+}
+
+#############
+# vectorizing
+#' @noRd
+total <- function(text, key){
+  # res
+  temp <- geoparser_get(query_par = list(inputText = URLencode(text),
+                                         apiKey = key))
+
+  # check message
+  geoparser_check(temp)
+
+  # parse
+  parsed <- geoparser_parse(temp)
+  # add text for future reference
+  parsed[["results"]] <- mutate_(parsed[["results"]],
+                                 text_md5 = ~digest::digest(text, algo = "md5"))
+
+  parsed[["properties"]] <- mutate_(parsed[["properties"]],
+                                 text_md5 = ~digest::digest(text, algo = "md5"))
+
+  # done!
+  parsed
+
 }

@@ -1,6 +1,6 @@
-geoparser 0.1.0 (2016-06-10)
+geoparser 0.2.0 (2016-06-10)
 =========================
 
 ### NEW FEATURES
 
-* added the NEWS.md
+* geoparser_q now accepts a vector of character.

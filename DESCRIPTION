@@ -23,5 +23,6 @@ Imports: dplyr,
     tidyr,
     utils,
     purrr,
-    stringr
+    stringr,
+    digest
 VignetteBuilder: knitr

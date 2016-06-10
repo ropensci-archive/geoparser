@@ -7,7 +7,7 @@
 #' @importFrom httr GET content
 #' @importFrom jsonlite fromJSON
 #'
-#' @param text_input A string, whose size must be smaller than 8 KB. See
+#' @param text_input A vector of strings, where each size must be smaller than 8 KB. See
 #'  \code{nchar(text_input, type = "bytes")}.
 #' @param key Your \code{geoparser.io} key.
 #'
@@ -34,6 +34,7 @@
 #' \item \code{apiVersion} the version of the API currently in use
 #' \item \code{source} the source of authority for the results
 #' \item \code{id} the unique id of the query
+#' \item \code{text_md5} MD5 hash of the text that was sent to the API.
 #' }
 #' The second \code{data.frame} contains the results and is called results.
 #' If there are no results it is totally empty, otherwise:
@@ -67,6 +68,7 @@
 #' \item \code{reference2} End (index of the first character after the place
 #' reference) --  \emph{each reference to this place name found in the input
 #' text is on one distinct line}.
+#' \item \code{text_md5} MD5 hash of the text that was sent to the API.
 #' }
 #' @references \href{https://geoparser.io/docs.html}{\code{Geoparser.io}
 #' documentation}
@@ -74,20 +76,18 @@
 #'
 #' @examples
 #' geoparser_q(text_input = "I was born in Vannes but I live in Barcelona.")
+#' geoparser_q(text_input = c("I was born in Vannes but I live in Barcelona.",
+#' "France is the most beautiful place in the world."))
 geoparser_q <- function(text_input,
                         key = geoparser_key()){
 
   # check arguments
   geoparser_query_check(text_input, key)
 
-  # res
-  temp <- geoparser_get(query_par = list(inputText = URLencode(text_input),
-                                        apiKey = key))
+  result <- lapply(text_input, total, key = key)
 
-  # check message
-  geoparser_check(temp)
 
-  # done!
-  geoparser_parse(temp)
+  list(results = do.call("rbind", lapply(result, "[[", "results")),
+       properties = do.call("rbind", lapply(result, "[[", "properties")))
 
 }

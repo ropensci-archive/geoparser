@@ -33,6 +33,8 @@ The output is list of 2 `data.frame`s (`dply::tbl_df`s). The first one is called
 
 * the `id` of the query
 
+* `text_md5` is the MD5 hash of the text that was sent to the API.
+
 ```{r, message=FALSE, warning=FALSE}
 output$properties
 
@@ -64,6 +66,18 @@ knitr::kable(output$results)
 * `reference1` is the start (index of the first character in the place reference) --  each reference to this place name found in the input text is on one distinct line.
 
 *  `reference2` the end (index of the first character after the place reference) --  each reference to the place name found in the input text is on one distinct line.
+
+* `text_md5` is the MD5 hash of the text that was sent to the API.
+
+You can input a vector of characters since the function is vectorized. This is the case where the MD5 hash of each text can be useful for further analysis.
+
+```{r, message=FALSE, warning=FALSE}
+library("geoparser")
+output_v <- geoparser_q(text_input = c("I was born in Vannes but I live in Barcelona.",
+"France is the most beautiful place in the world.", "No place here."))
+knitr::kable(output_v$results)
+knitr::kable(output_v$properties)
+```
 
 # How does it work?
 

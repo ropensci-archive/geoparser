@@ -2,6 +2,7 @@
 
 export(geoparser_key)
 export(geoparser_q)
+importFrom(digest,digest)
 importFrom(dplyr,"%>%")
 importFrom(dplyr,group_by)
 importFrom(dplyr,mutate_)
