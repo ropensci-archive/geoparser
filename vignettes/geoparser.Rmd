@@ -13,7 +13,7 @@ vignette: >
 
 According to [Wikipedia](https://en.wikipedia.org/wiki/Geoparsing), geoparsing is the process of converting free-text descriptions of places (such as "Springfield") into unambiguous geographic identifiers (such as lat-lon coordinates). A geoparser is a tool that helps in this process. Geoparsing goes beyond geocoding in that, rather than analyzing structured location references like mailing addresses and numerical coordinates, geoparsing handles ambiguous place names in unstructured text.
 
-Geoparser.io works best on complete sentences in *English*. If you have a very short text, such as a partial address like "`Auckland New Zealand`," you probably want to use a geocoder tool instead of a geoparser. In R, you can use the [opencage](https://github.com/ropenscilabs/opencage) package for geocoding!
+Geoparser.io works best on complete sentences in *English*. If you have a very short text, such as a partial address like "`Auckland New Zealand`," you probably want to use a geocoder tool instead of a geoparser. In R, you can use the [opencage](https://cran.r-project.org/web/packages/opencage/) package for geocoding!
 
 # How to use the package
 
