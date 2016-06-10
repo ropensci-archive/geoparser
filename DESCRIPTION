@@ -3,10 +3,10 @@ Type: Package
 Title: Interface to the Geoparser.io API
 Version: 0.1.0
 Authors@R: c(person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre")), person("Bob", "Rudis", role = c("rev", "ctb"), comment = "Bob Rudis reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/43"))
-Description: A wrapper for the the Geoparser.io API version 0.4.0, which is a web service
+Description: A wrapper for the Geoparser.io API version 0.4.0, which is a web service
     that identifies places mentioned in text, disambiguates those places, and
     returns detailed data about the places found in the text. Basic, limited
-    API access is free with paid plans to accomodate larger workloads.
+    API access is free with paid plans to accommodate larger workloads.
 License: GPL (>= 2)
 LazyData: TRUE
 URL: http://github.com/masalmon/geoparser
