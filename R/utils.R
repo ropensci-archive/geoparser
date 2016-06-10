@@ -52,10 +52,12 @@ geoparser_parse <- function(req) {
     results <- purrr::map(results, t)
     results <- suppressWarnings(purrr::map_df(results, as.data.frame))
     # making coordinates numeric
-    results$geometry.coordinates2 <- as.numeric(
-      as.character(results$geometry.coordinates2))
-    results$geometry.coordinates1 <- as.numeric(
-      as.character(results$geometry.coordinates1))
+    results <- results %>%
+      mutate_(geometry.coordinates2 = lazyeval::interp(
+        ~ as.character(as.numeric(geometry.coordinates2))))
+    results <- results %>%
+      mutate_(geometry.coordinates1 = lazyeval::interp(
+        ~ as.character(as.numeric(geometry.coordinates1))))
 
     # start modification of references to possibly multiple
     # occurrences of words
