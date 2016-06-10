@@ -4,6 +4,8 @@
 #' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup tbl_df rename_
 #' @importFrom lazyeval interp
 #' @importFrom utils URLencode
+#' @importFrom purrr map map_df map_dbl
+#' @importFrom stringr str_split
 
 # status check
 #' @noRd
@@ -43,11 +45,11 @@ geoparser_parse <- function(req) {
   # if we have something to process
   # getting from the raw output to a nice data.frame
   if(length(temp$features) != 0){
-    results <- lapply(temp$features, unlist)
-    results <- lapply(results, as.data.frame)
-    results <- lapply(results, t)
-    results <- lapply(results, as.data.frame)
-    results <- suppressWarnings(dplyr::bind_rows(results))
+
+    results <- purrr::map(temp$features, unlist)
+    results <- suppressWarnings(purrr::map(results, as.data.frame))
+    results <- purrr::map(results, t)
+    results <- suppressWarnings(purrr::map_df(results, as.data.frame))
     # making coordinates numeric
     results$geometry.coordinates2 <- as.numeric(
       as.character(results$geometry.coordinates2))
@@ -85,7 +87,12 @@ geoparser_parse <- function(req) {
 
 #' @noRd
 function_na <- function(vec){
-  sum(!is.na(vec))
+  # sep by _
+  temp <- stringr::str_split(vec, "_")[[1]]
+  # to numeric, warnings when NA
+  temp <- suppressWarnings(as.numeric(temp))
+  # count number of not NA
+  sum(!is.na(temp))
 }
 
 # for CRAN
@@ -98,11 +105,9 @@ start <- NULL
 # I think it's better for further processing.
 #' @noRd
 function_df <- function(df){
-  temp <- lapply(df$start, strsplit, "_")
-  temp <- lapply(temp, unlist)
-  temp <- suppressWarnings(lapply(temp, as.numeric))
-
-  lengths <- unlist(lapply(temp, function_na))
+  lengths <- dplyr::select_(df, "start")
+  lengths <- split(lengths, lengths$start)
+  lengths <-  purrr::map_dbl(lengths, function_na)
 
   df <- df[rep(1:nrow(df), lengths), ] %>%
     dplyr::group_by(start) %>%
