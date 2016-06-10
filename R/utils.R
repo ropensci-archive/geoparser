@@ -54,6 +54,10 @@ geoparser_parse <- function(req) {
     results$geometry.coordinates1 <- as.numeric(
       as.character(results$geometry.coordinates1))
 
+    # start modification of references to possibly multiple
+    # occurrences of words
+    # for this I first put all start and end references together
+    # separated by "_"
     which_ref <- which(grepl("references", names(results)))
     first_ind <- which_ref[which(which_ref %% 2 == 1)]
     results <- tidyr::unite_(results,
@@ -63,9 +67,11 @@ geoparser_parse <- function(req) {
     results <- tidyr::unite_(results,
                              "end",
                              names(results)[which_ref])
-
+    # end of the transformation for having 1 line per occurence
     results <- function_df(results)
 
+    # make names nicer by erasing the "properties." they have
+    # at the beginning
     names(results) <- gsub("properties\\.", "", names(results))
     results <- results[, 3:ncol(results)]
   }else{
