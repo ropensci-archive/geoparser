@@ -54,10 +54,10 @@ geoparser_parse <- function(req) {
     # making coordinates numeric
     results <- results %>%
       mutate_(geometry.coordinates2 = lazyeval::interp(
-        ~ as.character(as.numeric(geometry.coordinates2))))
+        ~ as.numeric(as.character(geometry.coordinates2))))
     results <- results %>%
       mutate_(geometry.coordinates1 = lazyeval::interp(
-        ~ as.character(as.numeric(geometry.coordinates1))))
+        ~ as.numeric(as.character(geometry.coordinates1))))
 
     # start modification of references to possibly multiple
     # occurrences of words
