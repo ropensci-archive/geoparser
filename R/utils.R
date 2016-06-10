@@ -41,12 +41,14 @@ geoparser_parse <- function(req) {
   temp <- jsonlite::fromJSON(text,
                              simplifyVector = FALSE)
   # if we have something to process
+  # getting from the raw output to a nice data.frame
   if(length(temp$features) != 0){
     results <- lapply(temp$features, unlist)
     results <- lapply(results, as.data.frame)
     results <- lapply(results, t)
     results <- lapply(results, as.data.frame)
     results <- suppressWarnings(dplyr::bind_rows(results))
+    # making coordinates numeric
     results$geometry.coordinates2 <- as.numeric(
       as.character(results$geometry.coordinates2))
     results$geometry.coordinates1 <- as.numeric(
@@ -84,6 +86,10 @@ function_na <- function(vec){
 start <- NULL
 
 # function for transforming start and end
+# This was needed because when a word is found several times,
+# I want a line per occurence instead of one line with
+# the starts and ends of all occurences in one cell.
+# I think it's better for further processing.
 #' @noRd
 function_df <- function(df){
   temp <- lapply(df$start, strsplit, "_")
