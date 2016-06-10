@@ -1,7 +1,7 @@
 #' @importFrom httr content POST add_headers accept_json status_code
 #' @importFrom jsonlite fromJSON
 #' @importFrom tidyr unite_
-#' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup tbl_df rename_
+#' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup tbl_df rename_ arrange_
 #' @importFrom lazyeval interp
 #' @importFrom utils URLencode
 #' @importFrom purrr map map_df map_dbl
@@ -106,9 +106,11 @@ start <- NULL
 # I think it's better for further processing.
 #' @noRd
 function_df <- function(df){
+  # arrange else lengths do not correspond to df
+  df <- arrange_(df, ~ start)
   lengths <- dplyr::select_(df, "start")
   lengths <- split(lengths, lengths$start)
-  lengths <-  rev(purrr::map_dbl(lengths, function_na))
+  lengths <-  purrr::map_dbl(lengths, function_na)
 
   df <- df[rep(1:nrow(df), lengths), ]
   df <- dplyr::group_by(df, start)

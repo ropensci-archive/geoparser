@@ -54,7 +54,7 @@ output$properties
     ## 
     ##   apiVersion       source                    id
     ## *     <fctr>       <fctr>                <fctr>
-    ## 1      0.4.0 geoparser.io QqQKOdOi149wtL9aQgEGN
+    ## 1      0.4.0 geoparser.io LNL5MVMhldpOc8QOVgkaK
     ## Variables not shown: text_md5 <chr>.
 
 The second data.frame contains the results and is called results:
@@ -111,9 +111,9 @@ knitr::kable(output_v$properties)
 
 | apiVersion | source       | id                    | text\_md5                        |
 |:-----------|:-------------|:----------------------|:---------------------------------|
-| 0.4.0      | geoparser.io | rdqeRxRF3QBbFL16l0EdQ | 90aba603d6b3f6b916c634f74ebc3a05 |
-| 0.4.0      | geoparser.io | KNqOJAJh6Ky4s26qpyAq4 | 33247ffc493ca57619549e512c7b5c59 |
-| 0.4.0      | geoparser.io | KNqOJAJh6Ky4s26qplZjX | a9b35a32dc022502c943daa55520bfc0 |
+| 0.4.0      | geoparser.io | 2dZK2x2FMBJltewbBk18q | 90aba603d6b3f6b916c634f74ebc3a05 |
+| 0.4.0      | geoparser.io | ZXyb6d6T0nYWfOdN07Lg6 | 33247ffc493ca57619549e512c7b5c59 |
+| 0.4.0      | geoparser.io | a73eXaXuL16WuG2l96Qby | a9b35a32dc022502c943daa55520bfc0 |
 
 How does it work?
 =================
@@ -132,10 +132,10 @@ knitr::kable(output2$results)
 
 | country | confidence | name   | admin1 | type                          | geometry.type |  longitude|  latitude|  reference1|  reference2| text\_md5                        |
 |:--------|:-----------|:-------|:-------|:------------------------------|:--------------|----------:|---------:|-----------:|-----------:|:---------------------------------|
+| FR      | 1          | France | 00     | independent political entity  | Point         |     2.0000|  46.00000|          51|          57| 34ac61cd71faef0cc4b336b706a7e545 |
 | FR      | 1          | Paris  | A8     | capital of a political entity | Point         |     2.3488|  48.85341|           7|          12| 34ac61cd71faef0cc4b336b706a7e545 |
 | FR      | 1          | Paris  | A8     | capital of a political entity | Point         |     2.3488|  48.85341|          17|          22| 34ac61cd71faef0cc4b336b706a7e545 |
 | FR      | 1          | Paris  | A8     | capital of a political entity | Point         |     2.3488|  48.85341|          27|          32| 34ac61cd71faef0cc4b336b706a7e545 |
-| FR      | 1          | France | 00     | independent political entity  | Point         |     2.0000|  46.00000|          51|          57| 34ac61cd71faef0cc4b336b706a7e545 |
 
 What happens if there are no results for the text?
 ==================================================
@@ -160,26 +160,45 @@ Let's look at this example:
 
 ``` r
 output3 <- geoparser_q("I live in Hyderabad, India. My mother would prefer living in Hyderabad near Islamabad!")
-```
-
-    ## Warning in eval(substitute(expr), envir, enclos): NAs introducidos por
-    ## coerción
-
-    ## Warning in eval(substitute(expr), envir, enclos): NAs introducidos por
-    ## coerción
-
-``` r
 knitr::kable(output3$results)
 ```
 
 | country | confidence | name       | admin1 | type                                          | geometry.type |  longitude|  latitude|  reference1|  reference2| text\_md5                        |
 |:--------|:-----------|:-----------|:-------|:----------------------------------------------|:--------------|----------:|---------:|-----------:|-----------:|:---------------------------------|
 | IN      | 1          | Hyderabad  | 40     | seat of a first-order administrative division | Point         |   78.45636|  17.38405|          10|          19| 645d890dde2bce1092338f0cbc7af011 |
+| IN      | 1          | Hyderabad  | 40     | seat of a first-order administrative division | Point         |   78.45636|  17.38405|          61|          70| 645d890dde2bce1092338f0cbc7af011 |
 | IN      | 1          | India      | 00     | independent political entity                  | Point         |   79.00000|  22.00000|          21|          26| 645d890dde2bce1092338f0cbc7af011 |
 | BD      | 1          | Chittagong | 84     | seat of a first-order administrative division | Point         |   91.83168|  22.33840|          76|          85| 645d890dde2bce1092338f0cbc7af011 |
-| BD      | 1          | Chittagong | 84     | seat of a first-order administrative division | Point         |   91.83168|  22.33840|          NA|          NA| 645d890dde2bce1092338f0cbc7af011 |
 
 Geoparser.io typically assumes two mentions of the same name appearing so closely together in the same input text refer to the same place. So, because it saw "`Hyderabad`" (India) in the first sentence, it assumes "`Hyderabad`" in the second sentence refers to the same city. Also, "`Islamabad`" is an alternate name for Chittagong, which has a higher population than Islamabad (Pakistan) and is closer to Hyderabad (India).
+
+Here is another example with a longer text.
+
+``` r
+text <- "Aliwagwag is situated in the Eastern Mindanao Biodiversity \
+Corridor which contains one of the largest remaining blocks of tropical lowland \
+rainforest in the Philippines. It covers an area of 10,491.33 hectares (25,924.6 \
+acres) and a buffer zone of 420.6 hectares (1,039 acres) in the hydrologically \
+rich mountainous interior of the municipalities of Cateel and Boston in Davao \
+Oriental as well as a portion of the municipality of Compostela in Compostela \
+Valley. It is also home to the tallest trees in the Philippines, the Philippine \
+rosewood, known locally as toog. In the waters of the upper Cateel River, a rare \
+species of fish can be found called sawugnun by locals which is harvested as a \
+delicacy." 
+
+output4 <- geoparser_q(text)
+knitr::kable(output4$results)
+```
+
+| country | confidence | name                       | admin1 | type                                 | geometry.type |  longitude|  latitude|  reference1|  reference2| text\_md5                        |
+|:--------|:-----------|:---------------------------|:-------|:-------------------------------------|:--------------|----------:|---------:|-----------:|-----------:|:---------------------------------|
+| PH      | 1          | Philippines                | 0      | independent political entity         | Point         |   122.0000|  13.00000|         159|         170| d89e347a998b58c6a8e54bc9f9abc073 |
+| PH      | 1          | Philippines                | 0      | independent political entity         | Point         |   122.0000|  13.00000|         513|         524| d89e347a998b58c6a8e54bc9f9abc073 |
+| PH      | 1          | Cateel                     | 11     | populated place                      | Point         |   126.4533|   7.79139|         354|         360| d89e347a998b58c6a8e54bc9f9abc073 |
+| PH      | 1          | Boston                     | 11     | populated place                      | Point         |   126.3642|   7.87111|         365|         371| d89e347a998b58c6a8e54bc9f9abc073 |
+| PH      | 1          | Province of Davao Oriental | 11     | second-order administrative division | Point         |   126.3333|   7.16667|         375|         390| d89e347a998b58c6a8e54bc9f9abc073 |
+| PH      | 1          | Compostela Valley          |        | valley                               | Point         |   125.9586|   7.60755|         449|         467| d89e347a998b58c6a8e54bc9f9abc073 |
+| PH      | 1          | Cateel River               | 11     | stream                               | Point         |   126.4533|   7.78750|         602|         614| d89e347a998b58c6a8e54bc9f9abc073 |
 
 What can I do with the results?
 ===============================

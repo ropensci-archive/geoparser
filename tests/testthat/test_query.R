@@ -10,6 +10,15 @@ test_that("query returns a list of data.frames",{
   expect_is(output$results$reference1, "numeric")
   expect_is(output$results$reference2, "numeric")
   expect_true(nrow(output$results) > 1)
+  output <- geoparser_q(text_input = c("Paris o Paris and Paris", "Soon I will travel to Munich" , "I live in Barcelona"))
+  expect_is(output, "list")
+  expect_is(output$properties, "tbl_df")
+  expect_is(output$results, "tbl_df")
+  expect_is(output$results$longitude, "numeric")
+  expect_is(output$results$latitude, "numeric")
+  expect_is(output$results$reference1, "numeric")
+  expect_is(output$results$reference2, "numeric")
+  expect_true(nrow(output$results) > 1)
 })
 
 test_that("no problems if no results",{
