@@ -4,7 +4,7 @@
 #' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup tbl_df rename_ arrange_
 #' @importFrom lazyeval interp
 #' @importFrom utils URLencode
-#' @importFrom purrr map map_df map_dbl
+#' @importFrom purrr map map_df map_dbl safely
 #' @importFrom stringr str_split
 #' @importFrom digest digest
 
@@ -155,7 +155,9 @@ geoparser_get <- function(query_par){
                            utils::URLencode(query_par$inputText))
   )
 }
-
+# get results
+#' @noRd
+geoparser_get_safe <- purrr::safely(geoparser_get)
 
 #' Retrieve Geoparser.io API key
 #'
@@ -180,9 +182,14 @@ geoparser_key <- function(quiet = TRUE) {
 #' @noRd
 total <- function(text, key){
   # res
-  temp <- geoparser_get(query_par = list(inputText = URLencode(text),
+  temp <- geoparser_get_safe(query_par = list(inputText = URLencode(text),
                                          apiKey = key))
-
+  if(!is.null(temp$error)){
+    message(paste0("The API call failed, the error message is ", temp$error))
+    return(NULL)
+  }else{
+    temp <- temp$result
+  }
   # check message
   geoparser_check(temp)
 
