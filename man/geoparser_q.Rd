@@ -63,7 +63,7 @@ returns data about the places found in the text.
 }
 \details{
 To get an API key, you need to register at
-\url{\code{https://geoparser.io/pricing.html}}.
+\url{https://geoparser.io/pricing.html}.
 With an hobbyist account, you can make up to 1,000 calls a month to the API.
 For ease of use, save your API key as an environment variable as described
 at \url{https://stat545-ubc.github.io/bit003_api-key-env-var.html}.
