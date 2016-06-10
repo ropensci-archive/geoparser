@@ -1,6 +1,6 @@
-geoparser 0.1.0 (2016-06-##)
+geoparser 0.1.0 (2016-06-10)
 =========================
 
 ### NEW FEATURES
 
-* released to CRAN
+* added the NEWS.md
