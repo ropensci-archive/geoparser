@@ -50,9 +50,9 @@ output$properties
 
     ## Source: local data frame [1 x 3]
     ## 
-    ##   apiVersion       source                    id
-    ##       (fctr)       (fctr)                (fctr)
-    ## 1      0.3.4 geoparser.io 15bNQyQuRjdoHVZZWqx83
+    ##   apiVersion       source                     id
+    ##       (fctr)       (fctr)                 (fctr)
+    ## 1      0.4.0 geoparser.io 9GEl1a2Inqr50TboB20K2M
 
 The second data.frame contains the results and is called results:
 
@@ -144,3 +144,5 @@ What can I do with the results?
 ===============================
 
 You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) or [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) or anything you like. The API website provides [suggestions of use](https://geoparser.io/uses.html) for inspiration.
+
+[![ropensci\_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)

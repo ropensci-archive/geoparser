@@ -1,5 +1,5 @@
 ---
-title: "geoparser Package for geoparsing via the geoparser.io API"
+title: "Geoparsing text using the geoparser.io API"
 author: "Maëlle Salmon"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -13,11 +13,11 @@ vignette: >
 
 According to [Wikipedia](https://en.wikipedia.org/wiki/Geoparsing), geoparsing is the process of converting free-text descriptions of places (such as "Springfield") into unambiguous geographic identifiers (such as lat-lon coordinates). A geoparser is a tool that helps in this process. Geoparsing goes beyond geocoding in that, rather than analyzing structured location references like mailing addresses and numerical coordinates, geoparsing handles ambiguous place names in unstructured text.
 
-Geoparser.io works best on complete sentences in *English*. If you have a very short text, such as a partial address like "Auckland New Zealand," you probably want to use a geocoder tool instead of a geoparser. In R, you can use the [opencage](https://github.com/ropenscilabs/opencage) package for geocoding!
+Geoparser.io works best on complete sentences in *English*. If you have a very short text, such as a partial address like "`Auckland New Zealand`," you probably want to use a geocoder tool instead of a geoparser. In R, you can use the [opencage](https://github.com/ropenscilabs/opencage) package for geocoding!
 
-# How to use the package?
+# How to use the package
 
-You need to input a text whose size is less than 8kB.
+You need to input a text whose size is less than 8KB.
 
 ```{r, message=FALSE, warning=FALSE}
 library("geoparser")
@@ -25,7 +25,7 @@ output <- geoparser_q("I was born in Vannes and I live in Barcelona")
 
 ```
 
-The output is list of 2 data.frames (`dplyr tbl_df`). The first one is called `properties`  and contains
+The output is list of 2 `data.frame`s (`dply::tbl_df`s). The first one is called `properties`  and contains
  
 * the api version called `apiVersion`
 
@@ -40,7 +40,6 @@ output$properties
 
 The second data.frame contains the results and is called results:
 
-
 ```{r, message=FALSE, warning=FALSE}
 knitr::kable(output$results)
 
@@ -50,13 +49,13 @@ knitr::kable(output$results)
 
 * `confidence` is a confidence score produced by the place name disambiguation algorithm. Currently returns a placeholder value; subject to change.
 
-* `name` is the best name for the specified location, with a preference for official/short name forms (e.g., "New York" over "NYC," and "California" over "State of California"), which may be different from exactly what appears in the text.
+* `name` is the best name for the specified location, with a preference for official/short name forms (e.g., "`New York`" over "`NYC`," and "`California`" over "`State of California`"), which may be different from exactly what appears in the text.
 
- * `admin1` is a code representing the state/province-level administrative division containing this place. (From GeoNames.org: "Most adm1 are FIPS codes. ISO codes are used for US, CH, BE and ME. UK and Greece are using an additional level between country and fips code. The code '00' stands for general features where no specific adm1 code is defined.").
+ * `admin1` is a code representing the state/province-level administrative division containing this place. (From GeoNames.org: _"Most adm1 are FIPS codes. ISO codes are used for US, CH, BE and ME. UK and Greece are using an additional level between country and fips code. The code '`00`' stands for general features where no specific adm1 code is defined."_).
 
- * `type` is a text description of the geographic feature type — see GeoNames.org for a complete list. Subject to change.
+ * `type` is a text description of the geographic feature type — see <GeoNames.org> for a complete list. Subject to change.
 
- * `geometry.type` is the type of the geographical feature, e.g. "Point".
+ * `geometry.type` is the type of the geographical feature, e.g. "`Point`".
 
  * `longitude` is the longitude.
 
@@ -65,7 +64,6 @@ knitr::kable(output$results)
 * `reference1` is the start (index of the first character in the place reference) --  each reference to this place name found in the input text is on one distinct line.
 
 *  `reference2` the end (index of the first character after the place reference) --  each reference to the place name found in the input text is on one distinct line.
-
 
 # How does it work?
 
@@ -104,7 +102,7 @@ knitr::kable(output3$results)
 
 ```
 
-Geoparser.io typically assumes two mentions of the same name appearing so closely together in the same input text refer to the same place. So, because it saw "Hyderabad" (India) in the first sentence, it assumes "Hyderabad" in the second sentence refers to the same city. Also, "Islamabad" is an alternate name for Chittagong, which has a higher population than Islamabad (Pakistan) and is closer to Hyderabad (India).
+Geoparser.io typically assumes two mentions of the same name appearing so closely together in the same input text refer to the same place. So, because it saw "`Hyderabad`" (India) in the first sentence, it assumes "`Hyderabad`" in the second sentence refers to the same city. Also, "`Islamabad`" is an alternate name for Chittagong, which has a higher population than Islamabad (Pakistan) and is closer to Hyderabad (India).
 
 # What can I do with the results?
 

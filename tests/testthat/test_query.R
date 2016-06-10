@@ -1,5 +1,6 @@
 context("query")
 test_that("query returns a list of data.frames",{
+  testthat::skip_on_cran()
   output <- geoparser_q(text_input = "Paris o Paris and Paris")
   expect_is(output, "list")
   expect_is(output$properties, "tbl_df")
@@ -12,6 +13,7 @@ test_that("query returns a list of data.frames",{
 })
 
 test_that("no problems if no results",{
+  testthat::skip_on_cran()
   output <- geoparser_q(text_input = "no placename here")
   expect_is(output, "list")
   expect_is(output$properties, "tbl_df")

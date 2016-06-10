@@ -1,17 +1,21 @@
-#' @importFrom httr content POST add_headers
-#' @importFrom jsonlite prettify fromJSON
+#' @importFrom httr content POST add_headers accept_json status_code
+#' @importFrom jsonlite fromJSON
 #' @importFrom tidyr unite_
 #' @importFrom dplyr "%>%" group_by mutate_ select_ ungroup tbl_df rename_
 #' @importFrom lazyeval interp
+#' @importFrom utils URLencode
 
 # status check
+#' @noRd
 geoparser_check <- function(req) {
-  if (req$status_code < 400) return(invisible())
-  stop("HTTP failure: ", req$status_code, call. = FALSE)
+  status <- httr::status_code(req)
+  if (status < 400) return(invisible())
+  stop("HTTP failure: ", status, call. = FALSE)
 }
 
 
 # function that checks the query
+#' @noRd
 geoparser_query_check <- function(text_input, key){
   # check key
   if(!is.null(key)){
@@ -28,6 +32,7 @@ geoparser_query_check <- function(text_input, key){
 }
 
 # parse results
+#' @noRd
 geoparser_parse <- function(req) {
   text <- httr::content(req, as = "text",
                         encoding = "UTF-8")
@@ -35,6 +40,7 @@ geoparser_parse <- function(req) {
                                 call. = FALSE)
   temp <- jsonlite::fromJSON(text,
                              simplifyVector = FALSE)
+  # if we have something to process
   if(length(temp$features) != 0){
     results <- lapply(temp$features, unlist)
     results <- lapply(results, as.data.frame)
@@ -48,32 +54,37 @@ geoparser_parse <- function(req) {
 
     which_ref <- which(grepl("references", names(results)))
     first_ind <- which_ref[which(which_ref %% 2 == 1)]
-    results <- unite_(results,
-                      "start",
-                      names(results)[first_ind])
+    results <- tidyr::unite_(results,
+                             "start",
+                             names(results)[first_ind])
     which_ref <- which(grepl("references", names(results)))
-    results <- unite_(results,
-                      "end",
-                      names(results)[which_ref])
+    results <- tidyr::unite_(results,
+                             "end",
+                             names(results)[which_ref])
 
     results <- function_df(results)
 
     names(results) <- gsub("properties\\.", "", names(results))
     results <- results[, 3:ncol(results)]
   }else{
-    results <- tbl_df(data.frame(NULL))
+    results <- dplyr::tbl_df(data.frame(NULL))
   }
 
 
-  list(properties = tbl_df(as.data.frame(temp$properties)),
+  list(properties = dplyr::tbl_df(as.data.frame(temp$properties)),
        results = results)
 }
 
+#' @noRd
 function_na <- function(vec){
   sum(!is.na(vec))
 }
 
+# for CRAN
+start <- NULL
+
 # function for transforming start and end
+#' @noRd
 function_df <- function(df){
   temp <- lapply(df$start, strsplit, "_")
   temp <- lapply(temp, unlist)
@@ -82,42 +93,46 @@ function_df <- function(df){
   lengths <- unlist(lapply(temp, function_na))
 
   df <- df[rep(1:nrow(df), lengths), ] %>%
-    group_by(start) %>%
-    mutate_(number = interp(quote(1:n()))) %>%
-    group_by(start)  %>%
-    mutate_(reference1 = interp(
+    dplyr::group_by(start) %>%
+    dplyr::mutate_(number = lazyeval::interp(quote(1:n()))) %>%
+    dplyr::group_by(start)  %>%
+    dplyr::mutate_(reference1 = lazyeval::interp(
       quote(
         as.numeric(strsplit(start[1], "_")[[1]][number]))))  %>%
-    mutate_(reference2 = interp(
+    dplyr::mutate_(reference2 = interp(
       quote(
         as.numeric(strsplit(end[1], "_")[[1]][number])))) %>%
-    select_(interp(quote(- start))) %>%
-    select_(interp(quote(- id))) %>%
-    select_(interp(quote(- number)))  %>%
-    select_(interp(quote(- end))) %>%
-    ungroup()
+    dplyr::select_(lazyeval::interp(quote(- start))) %>%
+    dplyr::select_(lazyeval::interp(quote(- id))) %>%
+    dplyr::select_(lazyeval::interp(quote(- number)))  %>%
+    dplyr::select_(lazyeval::interp(quote(- end))) %>%
+    dplyr::ungroup()
 
   df %>%
-    rename_(longitude = interp(quote(geometry.coordinates1))) %>%
-    rename_(latitude = interp(quote(geometry.coordinates2)))
+    dplyr::rename_(longitude =
+                     lazyeval::interp(quote(geometry.coordinates1))) %>%
+    dplyr::rename_(latitude = lazyeval::interp(quote(geometry.coordinates2)))
 
 }
 
 # base URL for all queries
+#' @noRd
 geoparser_url <- function() {
   "https://geoparser.io/api/geoparser/"
 }
 
 # get results
+#' @noRd
 geoparser_get <- function(query_par){
-  POST(geoparser_url(),
-       add_headers(
-         "Accept" = "application/json",
-         "Authorization" = paste("apiKey", query_par$apiKey),
-         "Content-Type" =
-           "application/x-www-form-urlencoded; charset=UTF-8"
-       ),
-       body = paste0("inputText=", URLencode(query_par$inputText))
+  httr::POST(geoparser_url(),
+             httr::accept_json(),
+             httr::add_headers(
+               "Authorization" = paste("apiKey", query_par$apiKey),
+               "Content-Type" =
+                 "application/x-www-form-urlencoded; charset=UTF-8"
+             ),
+             body = paste0("inputText=",
+                           utils::URLencode(query_par$inputText))
   )
 }
 
