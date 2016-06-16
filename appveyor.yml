@@ -15,6 +15,12 @@ environment:
     WARNINGS_ARE_ERRORS: 1
     USE_RTOOLS: true
 
+  matrix:
+  - R_VERSION: devel
+
+  - R_VERSION: release
+    R_ARCH: x64
+
 # Adapt as necessary starting from here
 
 build_script:
