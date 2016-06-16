@@ -1,7 +1,7 @@
 geoparser
 =========
 
-[![Build Status](https://travis-ci.org/masalmon/geoparser.svg?branch=master)](https://travis-ci.org/masalmon/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/masalmon/geoparser) [![codecov](https://codecov.io/gh/masalmon/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/masalmon/geoparser)
+[![Build Status](https://travis-ci.org/ropenscilabs/geoparser.svg?branch=master)](https://travis-ci.org/ropenscilabs/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/ropenscilabs/geoparser) [![codecov](https://codecov.io/gh/ropenscilabs/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/geoparser)
 
 This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
 
@@ -12,7 +12,7 @@ To install the package, you will need the devtools package.
 
 ``` r
 library("devtools")
-install_github("masalmon/geoparser")
+install_github("ropenscilabs/geoparser")
 ```
 
 To get an API key, you need to register at <https://geoparser.io/pricing.html>. With an hobbyist account, you can make up to 1,000 calls a month to the API. Please note that the API is currently in beta and thus totally free! For ease of use, save your API key as an environment variable as described at <https://stat545-ubc.github.io/bit003_api-key-env-var.html>.
@@ -54,7 +54,7 @@ output$properties
     ## 
     ##   apiVersion       source                    id
     ## *     <fctr>       <fctr>                <fctr>
-    ## 1      0.4.0 geoparser.io LNL5MVMhldpOc8QOVgkaK
+    ## 1      0.4.0 geoparser.io EKrJbBbhdop3u74Jr24kx
     ## Variables not shown: text_md5 <chr>.
 
 The second data.frame contains the results and is called results:
@@ -111,9 +111,9 @@ knitr::kable(output_v$properties)
 
 | apiVersion | source       | id                    | text\_md5                        |
 |:-----------|:-------------|:----------------------|:---------------------------------|
-| 0.4.0      | geoparser.io | 2dZK2x2FMBJltewbBk18q | 90aba603d6b3f6b916c634f74ebc3a05 |
-| 0.4.0      | geoparser.io | ZXyb6d6T0nYWfOdN07Lg6 | 33247ffc493ca57619549e512c7b5c59 |
-| 0.4.0      | geoparser.io | a73eXaXuL16WuG2l96Qby | a9b35a32dc022502c943daa55520bfc0 |
+| 0.4.0      | geoparser.io | 05WAQnQuo2aKuNRd3VR0o | 90aba603d6b3f6b916c634f74ebc3a05 |
+| 0.4.0      | geoparser.io | 8nDBQxQuNkl3T6jQZbjjx | 33247ffc493ca57619549e512c7b5c59 |
+| 0.4.0      | geoparser.io | LNL5MVMhldpOc8L3ZnLRX | a9b35a32dc022502c943daa55520bfc0 |
 
 How does it work?
 =================
@@ -204,3 +204,13 @@ What can I do with the results?
 ===============================
 
 You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) or [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) or anything you like. The API website provides [suggestions of use](https://geoparser.io/uses.html) for inspiration.
+
+Meta
+----
+
+-   Please [report any issues or bugs](https://github.com/ropenscilabs/geoparser/issues).
+-   License: GPL
+-   Get citation information for `geoparser` in R doing `citation(package = 'geoparser')`
+-   Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+[![ropensci\_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
