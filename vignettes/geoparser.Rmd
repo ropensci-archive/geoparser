@@ -9,6 +9,17 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+```
+
 # What is geoparsing?
 
 According to [Wikipedia](https://en.wikipedia.org/wiki/Geoparsing), geoparsing is the process of converting free-text descriptions of places (such as "Springfield") into unambiguous geographic identifiers (such as lat-lon coordinates). A geoparser is a tool that helps in this process. Geoparsing goes beyond geocoding in that, rather than analyzing structured location references like mailing addresses and numerical coordinates, geoparsing handles ambiguous place names in unstructured text.
