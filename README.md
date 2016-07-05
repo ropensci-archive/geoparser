@@ -24,7 +24,7 @@ What is geoparsing?
 
 According to [Wikipedia](https://en.wikipedia.org/wiki/Geoparsing), geoparsing is the process of converting free-text descriptions of places (such as "Springfield") into unambiguous geographic identifiers (such as lat-lon coordinates). A geoparser is a tool that helps in this process. Geoparsing goes beyond geocoding in that, rather than analyzing structured location references like mailing addresses and numerical coordinates, geoparsing handles ambiguous place names in unstructured text.
 
-Geoparser.io works best on complete sentences in *English*. If you have a very short text, such as a partial address like "`Auckland New Zealand`," you probably want to use a geocoder tool instead of a geoparser. In R, you can use the [opencage](https://cran.r-project.org/web/packages/opencage/) package for geocoding!
+Geoparser.io works best on complete sentences in *English*. If you have a very short text, such as a partial address like "`Auckland New Zealand`," you probably want to use a geocoder tool instead of a geoparser. In R, you can use the [opencage](https://cran.r-project.org/package=opencage) package for geocoding!
 
 How to use the package
 ======================
@@ -50,12 +50,11 @@ The output is list of 2 `data.frame`s (`dply::tbl_df`s). The first one is called
 output$properties
 ```
 
-    ## Source: local data frame [1 x 4]
-    ## 
+    ## # A tibble: 1 x 4
     ##   apiVersion       source                    id
     ## *     <fctr>       <fctr>                <fctr>
-    ## 1      0.4.0 geoparser.io EKrJbBbhdop3u74Jr24kx
-    ## Variables not shown: text_md5 <chr>.
+    ## 1      0.4.0 geoparser.io BDx1bAbcrXV3u5nObR5KV
+    ## # ... with 1 more variables: text_md5 <chr>
 
 The second data.frame contains the results and is called results:
 
@@ -111,9 +110,9 @@ knitr::kable(output_v$properties)
 
 | apiVersion | source       | id                    | text\_md5                        |
 |:-----------|:-------------|:----------------------|:---------------------------------|
-| 0.4.0      | geoparser.io | 05WAQnQuo2aKuNRd3VR0o | 90aba603d6b3f6b916c634f74ebc3a05 |
-| 0.4.0      | geoparser.io | 8nDBQxQuNkl3T6jQZbjjx | 33247ffc493ca57619549e512c7b5c59 |
-| 0.4.0      | geoparser.io | LNL5MVMhldpOc8L3ZnLRX | a9b35a32dc022502c943daa55520bfc0 |
+| 0.4.0      | geoparser.io | AK4Xb8bh8Lr3TX6gDNxOB | 90aba603d6b3f6b916c634f74ebc3a05 |
+| 0.4.0      | geoparser.io | JN5gwpwhVN2DcwY740WaQ | 33247ffc493ca57619549e512c7b5c59 |
+| 0.4.0      | geoparser.io | p2OeVDVhrK1Jue0K1oldx | a9b35a32dc022502c943daa55520bfc0 |
 
 How does it work?
 =================
@@ -147,9 +146,8 @@ output_nothing <- geoparser_q("No placename can be found.")
 output_nothing$results
 ```
 
-    ## Source: local data frame [0 x 1]
-    ## 
-    ## Variables not shown: text_md5 <chr>.
+    ## # A tibble: 0 x 1
+    ## # ... with 1 variables: text_md5 <chr>
 
 How well does it work?
 ======================

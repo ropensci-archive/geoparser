@@ -80,9 +80,11 @@ instead of a geoparser. In R, you can use the
 geocoding!
 }
 \examples{
+\dontrun{
 geoparser_q(text_input = "I was born in Vannes but I live in Barcelona.")
 geoparser_q(text_input = c("I was born in Vannes but I live in Barcelona.",
 "France is the most beautiful place in the world."))
+}
 }
 \references{
 \href{https://geoparser.io/docs.html}{\code{Geoparser.io}

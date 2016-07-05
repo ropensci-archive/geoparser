@@ -75,9 +75,11 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' geoparser_q(text_input = "I was born in Vannes but I live in Barcelona.")
 #' geoparser_q(text_input = c("I was born in Vannes but I live in Barcelona.",
 #' "France is the most beautiful place in the world."))
+#' }
 geoparser_q <- function(text_input,
                         key = geoparser_key()){
 
