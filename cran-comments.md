@@ -15,11 +15,7 @@
 
 In this version
 
-* Description was corrected.
-
-* The URLs to CRAN packages were corrected.
-
-* The example needing an API key is now in a `\dontrun{}`.
+* I added an URL to the API website in DESCRIPTION.
 
 ## Reverse dependencies
 
