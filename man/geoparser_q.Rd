@@ -76,7 +76,7 @@ variable called "\code{GEOPARSER_KEY}" you don't need to input it manually.
 have a very short text, such as a partial address like
 "\code{Auckland New Zealand}," you probably want to use a geocoder tool
 instead of a geoparser. In R, you can use the
-\href{https://cran.r-project.org/web/packages/opencage/}{opencage package} for
+\href{https://cran.r-project.org/package=opencage}{opencage package} for
 geocoding!
 }
 \examples{

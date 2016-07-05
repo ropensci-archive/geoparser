@@ -159,7 +159,7 @@ knitr::kable(output4$results)
 
 # What can I do with the results?
 
-You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) or [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) or anything you like. The API website provides [suggestions of use](https://geoparser.io/uses.html) for inspiration.
+You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) or [ggmap](https://cran.r-project.org/package=ggmap) or anything you like. The API website provides [suggestions of use](https://geoparser.io/uses.html) for inspiration.
 
 
 ## Meta

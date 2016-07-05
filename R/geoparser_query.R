@@ -25,7 +25,7 @@
 #' have a very short text, such as a partial address like
 #' "\code{Auckland New Zealand}," you probably want to use a geocoder tool
 #' instead of a geoparser. In R, you can use the
-#' \href{https://cran.r-project.org/web/packages/opencage/}{opencage package} for
+#' \href{https://cran.r-project.org/package=opencage}{opencage package} for
 #' geocoding!
 #'
 #' @return A list of 2 \code{data.frame}s (\code{dplyr::tbl_df}s). The first

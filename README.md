@@ -53,7 +53,7 @@ output$properties
     ## # A tibble: 1 x 4
     ##   apiVersion       source                    id
     ## *     <fctr>       <fctr>                <fctr>
-    ## 1      0.4.0 geoparser.io BDx1bAbcrXV3u5nObR5KV
+    ## 1      0.4.0 geoparser.io 4Wdx9A9sOQ3ecpwd7bY7l
     ## # ... with 1 more variables: text_md5 <chr>
 
 The second data.frame contains the results and is called results:
@@ -110,9 +110,9 @@ knitr::kable(output_v$properties)
 
 | apiVersion | source       | id                    | text\_md5                        |
 |:-----------|:-------------|:----------------------|:---------------------------------|
-| 0.4.0      | geoparser.io | AK4Xb8bh8Lr3TX6gDNxOB | 90aba603d6b3f6b916c634f74ebc3a05 |
-| 0.4.0      | geoparser.io | JN5gwpwhVN2DcwY740WaQ | 33247ffc493ca57619549e512c7b5c59 |
-| 0.4.0      | geoparser.io | p2OeVDVhrK1Jue0K1oldx | a9b35a32dc022502c943daa55520bfc0 |
+| 0.4.0      | geoparser.io | p2OeVDVhrK1Jue0K18ny3 | 90aba603d6b3f6b916c634f74ebc3a05 |
+| 0.4.0      | geoparser.io | 6n6jQ5QuBqw0HVb9Wp3OL | 33247ffc493ca57619549e512c7b5c59 |
+| 0.4.0      | geoparser.io | yq2eRnRiKbLeTVO3LqaXX | a9b35a32dc022502c943daa55520bfc0 |
 
 How does it work?
 =================
@@ -201,7 +201,7 @@ knitr::kable(output4$results)
 What can I do with the results?
 ===============================
 
-You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) or [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) or anything you like. The API website provides [suggestions of use](https://geoparser.io/uses.html) for inspiration.
+You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) or [ggmap](https://cran.r-project.org/package=ggmap) or anything you like. The API website provides [suggestions of use](https://geoparser.io/uses.html) for inspiration.
 
 Meta
 ----
