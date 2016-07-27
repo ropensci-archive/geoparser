@@ -1,7 +1,7 @@
 geoparser
 =========
 
-[![Build Status](https://travis-ci.org/ropenscilabs/geoparser.svg?branch=master)](https://travis-ci.org/ropenscilabs/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/ropenscilabs/geoparser) [![codecov](https://codecov.io/gh/ropenscilabs/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/geoparser)
+[![Build Status](https://travis-ci.org/ropenscilabs/geoparser.svg?branch=master)](https://travis-ci.org/ropenscilabs/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/s7snrqcgo19b10w9?svg=true)](https://ci.appveyor.com/project/ropenscilabs/geoparser) [![codecov](https://codecov.io/gh/ropenscilabs/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/geoparser)
 
 This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
 
