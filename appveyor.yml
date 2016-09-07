@@ -28,9 +28,7 @@ environment:
 # Adapt as necessary starting from here
 
 build_script:
-  - travis-tool.sh install_github hadley/devtools
   - travis-tool.sh install_deps
-  - travis-tool.sh install_r testthat
 
 test_script:
   - travis-tool.sh run_tests
