@@ -53,7 +53,7 @@ output$properties
     ## # A tibble: 1 × 4
     ##   apiVersion       source                    id
     ## *     <fctr>       <fctr>                <fctr>
-    ## 1      0.4.1 geoparser.io 5Nn2yeyhr0n3uOonpwARE
+    ## 1      0.4.1 geoparser.io o2geR6RhONVwcNJe3KLaZ
     ## # ... with 1 more variables: text_md5 <chr>
 
 The second data.frame contains the results and is called results:
@@ -110,9 +110,9 @@ knitr::kable(output_v$properties)
 
 | apiVersion | source       | id                    | text\_md5                        |
 |:-----------|:-------------|:----------------------|:---------------------------------|
-| 0.4.1      | geoparser.io | p2OeVDVhrK1JueENRkqB5 | 90aba603d6b3f6b916c634f74ebc3a05 |
-| 0.4.1      | geoparser.io | QqQKOdOi149wtLNMWZpaL | 33247ffc493ca57619549e512c7b5c59 |
-| 0.4.1      | geoparser.io | MnAqrKru7pXKu08b5n7kr | a9b35a32dc022502c943daa55520bfc0 |
+| 0.4.1      | geoparser.io | 9n09xgxuWk20cbj0pYXVl | 90aba603d6b3f6b916c634f74ebc3a05 |
+| 0.4.1      | geoparser.io | nVpeWLWuJA9bhGleMj9gM | 33247ffc493ca57619549e512c7b5c59 |
+| 0.4.1      | geoparser.io | LNL5MVMhldpOc8Jaq7glW | a9b35a32dc022502c943daa55520bfc0 |
 
 How does it work?
 =================

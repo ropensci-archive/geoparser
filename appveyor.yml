@@ -21,6 +21,7 @@ environment:
   - R_VERSION: patched
 
   - R_VERSION: oldrel
+    RTOOLS_VERSION: 33
 
   - R_VERSION: devel
 
@@ -28,7 +29,6 @@ environment:
 
 build_script:
   - travis-tool.sh install_deps
-  - travis-tool.sh install_r testthat
 
 test_script:
   - travis-tool.sh run_tests
@@ -55,3 +55,13 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
+
+notifications:
+ - provider: Email
+   to:
+     - maelle.salmon@yahoo.se
+   subject: 'geoparser build {{status}}'                  # optional
+   message: "https://ci.appveyor.com/project/ropensci/geoparser"    # optional
+   on_build_success: false
+   on_build_failure: true
+   on_build_status_changed: true
