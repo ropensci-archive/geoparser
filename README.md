@@ -1,7 +1,7 @@
 geoparser
 =========
 
-[![Build Status](https://travis-ci.org/ropenscilabs/geoparser.svg?branch=master)](https://travis-ci.org/ropenscilabs/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/ropenscilabs/geoparser) [![codecov](https://codecov.io/gh/ropenscilabs/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/geoparser)
+[![Build Status](https://travis-ci.org/ropensci/geoparser.svg?branch=master)](https://travis-ci.org/ropensci/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/ropensci/geoparser) [![codecov](https://codecov.io/gh/ropensci/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/geoparser)
 
 This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
 
@@ -12,7 +12,7 @@ To install the package, you will need the devtools package.
 
 ``` r
 library("devtools")
-install_github("ropenscilabs/geoparser")
+install_github("ropensci/geoparser")
 ```
 
 To get an API key, you need to register at <https://geoparser.io/pricing.html>. With an hobbyist account, you can make up to 1,000 calls a month to the API. Please note that the API is currently in beta and thus totally free! For ease of use, save your API key as an environment variable as described at <https://stat545-ubc.github.io/bit003_api-key-env-var.html>.
@@ -50,10 +50,10 @@ The output is list of 2 `data.frame`s (`dply::tbl_df`s). The first one is called
 output$properties
 ```
 
-    ## # A tibble: 1 x 4
+    ## # A tibble: 1 × 4
     ##   apiVersion       source                    id
     ## *     <fctr>       <fctr>                <fctr>
-    ## 1      0.4.0 geoparser.io 4Wdx9A9sOQ3ecpwd7bY7l
+    ## 1      0.4.1 geoparser.io 5Nn2yeyhr0n3uOonpwARE
     ## # ... with 1 more variables: text_md5 <chr>
 
 The second data.frame contains the results and is called results:
@@ -110,9 +110,9 @@ knitr::kable(output_v$properties)
 
 | apiVersion | source       | id                    | text\_md5                        |
 |:-----------|:-------------|:----------------------|:---------------------------------|
-| 0.4.0      | geoparser.io | p2OeVDVhrK1Jue0K18ny3 | 90aba603d6b3f6b916c634f74ebc3a05 |
-| 0.4.0      | geoparser.io | 6n6jQ5QuBqw0HVb9Wp3OL | 33247ffc493ca57619549e512c7b5c59 |
-| 0.4.0      | geoparser.io | yq2eRnRiKbLeTVO3LqaXX | a9b35a32dc022502c943daa55520bfc0 |
+| 0.4.1      | geoparser.io | p2OeVDVhrK1JueENRkqB5 | 90aba603d6b3f6b916c634f74ebc3a05 |
+| 0.4.1      | geoparser.io | QqQKOdOi149wtLNMWZpaL | 33247ffc493ca57619549e512c7b5c59 |
+| 0.4.1      | geoparser.io | MnAqrKru7pXKu08b5n7kr | a9b35a32dc022502c943daa55520bfc0 |
 
 How does it work?
 =================
@@ -146,7 +146,7 @@ output_nothing <- geoparser_q("No placename can be found.")
 output_nothing$results
 ```
 
-    ## # A tibble: 0 x 1
+    ## # A tibble: 0 × 1
     ## # ... with 1 variables: text_md5 <chr>
 
 How well does it work?
@@ -206,7 +206,7 @@ You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) o
 Meta
 ----
 
--   Please [report any issues or bugs](https://github.com/ropenscilabs/geoparser/issues).
+-   Please [report any issues or bugs](https://github.com/ropensci/geoparser/issues).
 -   License: GPL
 -   Get citation information for `geoparser` in R doing `citation(package = 'geoparser')`
 -   Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
