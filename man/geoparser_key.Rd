@@ -11,4 +11,3 @@ A Geoparser.io API Key
 Looks in env var \code{GEOPARSER_KEY}
 }
 \keyword{internal}
-

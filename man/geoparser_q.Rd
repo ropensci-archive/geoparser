@@ -90,4 +90,3 @@ geoparser_q(text_input = c("I was born in Vannes but I live in Barcelona.",
 \href{https://geoparser.io/docs.html}{\code{Geoparser.io}
 documentation}
 }
-
