@@ -1,7 +1,7 @@
 Package: geoparser
 Type: Package
 Title: Interface to the Geoparser.io API for Identifying and Disambiguating Places Mentioned in Text
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = c("aut", "cre")), person("Bob", "Rudis", role = c("ctb"), comment = "Bob Rudis reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/43"))
 Description: A wrapper for the Geoparser.io API version 0.4.0 (see <https://geoparser.io/>), which is a web service
     that identifies places mentioned in text, disambiguates those places, and

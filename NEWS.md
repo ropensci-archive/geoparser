@@ -1,6 +1,3 @@
-geoparser 0.2.0 (2016-06-10)
-=========================
+# geoparser 0.1.1
 
-### NEW FEATURES
-
-* geoparser_q now accepts a vector of character.
+* Updates links to the Github repo (moved from ropenscilabs to ropensci)
