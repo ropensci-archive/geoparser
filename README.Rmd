@@ -28,7 +28,7 @@ install_github("ropensci/geoparser")
 
 ```
 
-To get an API key, you need to register at https://geoparser.io/pricing.html. With an hobbyist account, you can make up to 1,000 calls a month to the API.  Please note that the API is currently in beta and thus totally free! For ease of use, save your API key as an environment variable as described at https://stat545-ubc.github.io/bit003_api-key-env-var.html.
+To get an API key, you need to register at https://geoparser.io/pricing.html. With an hobbyist account, you can make up to 1,000 calls a month to the API. For ease of use, save your API key as an environment variable as described at https://stat545-ubc.github.io/bit003_api-key-env-var.html.
 
 The package will conveniently look for your API key using `Sys.getenv("GEOPARSER_KEY")` so if your API key is an environment variable called "GEOPARSER_KEY" you don't need to input it manually.
 
