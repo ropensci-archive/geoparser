@@ -1,6 +1,7 @@
 geoparser
 =========
 
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
 [![Build Status](https://travis-ci.org/ropensci/geoparser.svg?branch=master)](https://travis-ci.org/ropensci/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/ropensci/geoparser) [![codecov](https://codecov.io/gh/ropensci/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/geoparser)
 [![](https://badges.ropensci.org/43_status.svg)](https://github.com/ropensci/onboarding/issues/43)
 
