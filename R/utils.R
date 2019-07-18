@@ -116,7 +116,7 @@ function_df <- function(df){
 
   df <- df[rep(1:nrow(df), lengths), ]
   df <- dplyr::group_by(df, start)
-  df <- dplyr::mutate_(df, number = lazyeval::interp(quote(1:n())))
+  df <- dplyr::mutate_(df, number = lazyeval::interp(quote(seq_len(dplyr::n()))))
   df <- dplyr::group_by(df, start)
   df <- dplyr::mutate_(df, reference1 = lazyeval::interp(
       quote(
