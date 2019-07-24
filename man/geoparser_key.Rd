@@ -8,6 +8,7 @@ geoparser_key(quiet = TRUE)
 }
 \description{
 A Geoparser.io API Key
-Looks in env var \code{GEOPARSER_KEY}
+Looks in env var \code{GEOPARSER_KEY}. The function errors if no key is
+saved in .Renviron.
 }
 \keyword{internal}
