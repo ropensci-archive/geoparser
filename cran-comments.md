@@ -1,7 +1,8 @@
 ## Test environments
-* local x86_64-w64-mingw32/x64 install, R 3.3.1
-* Ubuntu 12.04 (on Travis CI), R devel, release and oldrel
-* Windows on Appveyor CI (stable, patched and devel)
+- Local R version 3.6.0 Ubuntu 18.04.2 LTS  
+- R-hub windows-x86_64-devel (r-devel)
+- R-hub ubuntu-gcc-release (r-release)
+- R-hub fedora-clang-devel (r-devel)
 
 ## R CMD check results
 
@@ -9,4 +10,8 @@
 
 ## Release summary
 
-* I changed the URL to reflect the change of owner of the Github repository.
+* Fix error caused by a namespace issue
+
+* Change the behavior of geoparser_key() such that if no key is provided and
+no key is saved in .Renviron either, the function errors with an informative 
+error message (#11).
