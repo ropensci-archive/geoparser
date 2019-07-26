@@ -1,11 +1,21 @@
 geoparser
 =========
 
-[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
-[![Build Status](https://travis-ci.org/ropensci/geoparser.svg?branch=master)](https://travis-ci.org/ropensci/geoparser) [![Build status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/ropensci/geoparser) [![codecov](https://codecov.io/gh/ropensci/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/geoparser)
+[![Project Status: Inactive – The project has reached a stable, usable
+state but is no longer being actively developed; support/maintenance
+will be provided as time
+allows.](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
+[![Build
+Status](https://travis-ci.org/ropensci/geoparser.svg?branch=master)](https://travis-ci.org/ropensci/geoparser)
+[![Build
+status](https://ci.appveyor.com/api/projects/status/7sw9ufcgh8pk1r5d?svg=true)](https://ci.appveyor.com/project/ropensci/geoparser)
+[![codecov](https://codecov.io/gh/ropensci/geoparser/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/geoparser)
 [![](https://badges.ropensci.org/43_status.svg)](https://github.com/ropensci/onboarding/issues/43)
 
-This package is an interface to the [geoparser.io API](https://geoparser.io) that identifies places mentioned in text, disambiguates those places, and returns data about the places found in the text.
+This package is an interface to the [geoparser.io
+API](https://geoparser.io) that identifies places mentioned in text,
+disambiguates those places, and returns data about the places found in
+the text.
 
 Installation
 ============
@@ -17,16 +27,35 @@ library("devtools")
 install_github("ropensci/geoparser")
 ```
 
-To get an API key, you need to register at <https://geoparser.io/pricing.html>. With an hobbyist account, you can make up to 1,000 calls a month to the API. For ease of use, save your API key as an environment variable as described at <https://stat545-ubc.github.io/bit003_api-key-env-var.html>.
+To get an API key, you need to register at
+<a href="https://geoparser.io/pricing.html" class="uri">https://geoparser.io/pricing.html</a>.
+With an hobbyist account, you can make up to 1,000 calls a month to the
+API. For ease of use, save your API key as an environment variable as
+described at
+<a href="https://stat545-ubc.github.io/bit003_api-key-env-var.html" class="uri">https://stat545-ubc.github.io/bit003_api-key-env-var.html</a>.
 
-The package will conveniently look for your API key using `Sys.getenv("GEOPARSER_KEY")` so if your API key is an environment variable called "GEOPARSER\_KEY" you don't need to input it manually.
+The package will conveniently look for your API key using
+`Sys.getenv("GEOPARSER_KEY")` so if your API key is an environment
+variable called “GEOPARSER\_KEY” you don’t need to input it manually.
 
 What is geoparsing?
 ===================
 
-According to [Wikipedia](https://en.wikipedia.org/wiki/Geoparsing), geoparsing is the process of converting free-text descriptions of places (such as "Springfield") into unambiguous geographic identifiers (such as lat-lon coordinates). A geoparser is a tool that helps in this process. Geoparsing goes beyond geocoding in that, rather than analyzing structured location references like mailing addresses and numerical coordinates, geoparsing handles ambiguous place names in unstructured text.
+According to [Wikipedia](https://en.wikipedia.org/wiki/Geoparsing),
+geoparsing is the process of converting free-text descriptions of places
+(such as “Springfield”) into unambiguous geographic identifiers (such as
+lat-lon coordinates). A geoparser is a tool that helps in this process.
+Geoparsing goes beyond geocoding in that, rather than analyzing
+structured location references like mailing addresses and numerical
+coordinates, geoparsing handles ambiguous place names in unstructured
+text.
 
-Geoparser.io works best on complete sentences in *English*. If you have a very short text, such as a partial address like "`Auckland New Zealand`," you probably want to use a geocoder tool instead of a geoparser. In R, you can use the [opencage](https://cran.r-project.org/package=opencage) package for geocoding!
+Geoparser.io works best on complete sentences in *English*. If you have
+a very short text, such as a partial address like
+“`Auckland New Zealand`,” you probably want to use a geocoder tool
+instead of a geoparser. In R, you can use the
+[opencage](https://cran.r-project.org/package=opencage) package for
+geocoding!
 
 How to use the package
 ======================
@@ -38,7 +67,8 @@ library("geoparser")
 output <- geoparser_q("I was born in Vannes and I live in Barcelona")
 ```
 
-The output is list of 2 `data.frame`s (`dply::tbl_df`s). The first one is called `properties` and contains
+The output is list of 2 `data.frame`s (`dply::tbl_df`s). The first one
+is called `properties` and contains
 
 -   the api version called `apiVersion`
 
@@ -52,11 +82,10 @@ The output is list of 2 `data.frame`s (`dply::tbl_df`s). The first one is called
 output$properties
 ```
 
-    ## # A tibble: 1 × 4
-    ##   apiVersion       source                    id
-    ## *     <fctr>       <fctr>                <fctr>
-    ## 1      0.4.1 geoparser.io o2geR6RhONVwcNJe3KLaZ
-    ## # ... with 1 more variables: text_md5 <chr>
+    ## # A tibble: 1 x 4
+    ##   apiVersion source       id                  text_md5                     
+    ##   <fct>      <fct>        <fct>               <chr>                        
+    ## 1 0.5.2      geoparser.io eVYeJaJuoMZRuAap5e… 51e05aeb3366e55795a9729dd74a…
 
 The second data.frame contains the results and is called results:
 
@@ -69,29 +98,50 @@ knitr::kable(output$results)
 | FR      | 1          | Vannes    | A2     | seat of a second-order administrative division | Point         |   -2.75000|  47.66667|          14|          20| 51e05aeb3366e55795a9729dd74ae901 |
 | ES      | 1          | Barcelona | 56     | seat of a first-order administrative division  | Point         |    2.15899|  41.38879|          35|          44| 51e05aeb3366e55795a9729dd74ae901 |
 
--   `country` is the [ISO-3166 2-letter country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the country in which this place is located, or NULL for features outside any sovereign territory.
+-   `country` is the [ISO-3166 2-letter country
+    code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the
+    country in which this place is located, or NULL for features outside
+    any sovereign territory.
 
--   `confidence` is a confidence score produced by the place name disambiguation algorithm. Currently returns a placeholder value; subject to change.
+-   `confidence` is a confidence score produced by the place name
+    disambiguation algorithm. Currently returns a placeholder value;
+    subject to change.
 
--   `name` is the best name for the specified location, with a preference for official/short name forms (e.g., "`New York`" over "`NYC`," and "`California`" over "`State of California`"), which may be different from exactly what appears in the text.
+-   `name` is the best name for the specified location, with a
+    preference for official/short name forms (e.g., “`New York`” over
+    “`NYC`,” and “`California`” over “`State of California`”), which may
+    be different from exactly what appears in the text.
 
--   `admin1` is a code representing the state/province-level administrative division containing this place. (From GeoNames.org: *"Most adm1 are FIPS codes. ISO codes are used for US, CH, BE and ME. UK and Greece are using an additional level between country and fips code. The code '`00`' stands for general features where no specific adm1 code is defined."*).
+-   `admin1` is a code representing the state/province-level
+    administrative division containing this place. (From GeoNames.org:
+    *“Most adm1 are FIPS codes. ISO codes are used for US, CH, BE and
+    ME. UK and Greece are using an additional level between country and
+    fips code. The code ‘`00`’ stands for general features where no
+    specific adm1 code is defined.”*).
 
--   `type` is a text description of the geographic feature type — see <GeoNames.org> for a complete list. Subject to change.
+-   `type` is a text description of the geographic feature type — see
+    &lt;GeoNames.org&gt; for a complete list. Subject to change.
 
--   `geometry.type` is the type of the geographical feature, e.g. "`Point`".
+-   `geometry.type` is the type of the geographical feature, e.g.
+    “`Point`”.
 
 -   `longitude` is the longitude.
 
 -   `latitude` is the latitude.
 
--   `reference1` is the start (index of the first character in the place reference) -- each reference to this place name found in the input text is on one distinct line.
+-   `reference1` is the start (index of the first character in the place
+    reference) – each reference to this place name found in the input
+    text is on one distinct line.
 
--   `reference2` the end (index of the first character after the place reference) -- each reference to the place name found in the input text is on one distinct line.
+-   `reference2` the end (index of the first character after the place
+    reference) – each reference to the place name found in the input
+    text is on one distinct line.
 
 -   `text_md5` is the MD5 hash of the text that was sent to the API.
 
-You can input a vector of characters since the function is vectorized. This is the case where the MD5 hash of each text can be useful for further analysis.
+You can input a vector of characters since the function is vectorized.
+This is the case where the MD5 hash of each text can be useful for
+further analysis.
 
 ``` r
 library("geoparser")
@@ -112,19 +162,24 @@ knitr::kable(output_v$properties)
 
 | apiVersion | source       | id                    | text\_md5                        |
 |:-----------|:-------------|:----------------------|:---------------------------------|
-| 0.4.1      | geoparser.io | 9n09xgxuWk20cbj0pYXVl | 90aba603d6b3f6b916c634f74ebc3a05 |
-| 0.4.1      | geoparser.io | nVpeWLWuJA9bhGleMj9gM | 33247ffc493ca57619549e512c7b5c59 |
-| 0.4.1      | geoparser.io | LNL5MVMhldpOc8Jaq7glW | a9b35a32dc022502c943daa55520bfc0 |
+| 0.5.2      | geoparser.io | BDx1bAbcrXV3u5WXaB62y | 90aba603d6b3f6b916c634f74ebc3a05 |
+| 0.5.2      | geoparser.io | eVYeJaJuoMZRuAap5eQra | 33247ffc493ca57619549e512c7b5c59 |
+| 0.5.2      | geoparser.io | WAWBZdZhwOEQU4YaJNLb5 | a9b35a32dc022502c943daa55520bfc0 |
 
 How does it work?
 =================
 
-The API uses the Geonames.org gazetteer data. Geoparser.io uses a variety of named entity recognition tools to extract location names from the raw text input, and then applies a proprietary disambiguation algorithm to resolve location names to specific gazetteer records.
+The API uses the Geonames.org gazetteer data. Geoparser.io uses a
+variety of named entity recognition tools to extract location names from
+the raw text input, and then applies a proprietary disambiguation
+algorithm to resolve location names to specific gazetteer records.
 
 What happens if the same place occurs several times in the text?
 ================================================================
 
-If the input text contains several times the same placename, there is one line for each repetition, the only difference between lines being the values of `reference1` and `reference2`.
+If the input text contains several times the same placename, there is
+one line for each repetition, the only difference between lines being
+the values of `reference1` and `reference2`.
 
 ``` r
 output2 <- geoparser_q("I like Paris and Paris and Paris and yeah it is in France!")
@@ -148,15 +203,20 @@ output_nothing <- geoparser_q("No placename can be found.")
 output_nothing$results
 ```
 
-    ## # A tibble: 0 × 1
-    ## # ... with 1 variables: text_md5 <chr>
+    ## # A tibble: 0 x 1
+    ## # … with 1 variable: text_md5 <chr>
 
 How well does it work?
 ======================
 
-The API team has tested the API un-scientifically and noticed a performance similar to other existing geoparsing tools. A scientific evaluation is under way. The public Geoparser.io API works best with professionally-written, professionally-edited news articles, but for Enterprise customers the API team says that it can be tuned/tweaked for other kinds of input (e.g., social media).
+The API team has tested the API un-scientifically and noticed a
+performance similar to other existing geoparsing tools. A scientific
+evaluation is under way. The public Geoparser.io API works best with
+professionally-written, professionally-edited news articles, but for
+Enterprise customers the API team says that it can be tuned/tweaked for
+other kinds of input (e.g., social media).
 
-Let's look at this example:
+Let’s look at this example:
 
 ``` r
 output3 <- geoparser_q("I live in Hyderabad, India. My mother would prefer living in Hyderabad near Islamabad!")
@@ -170,7 +230,12 @@ knitr::kable(output3$results)
 | IN      | 1          | India      | 00     | independent political entity                  | Point         |   79.00000|  22.00000|          21|          26| 645d890dde2bce1092338f0cbc7af011 |
 | BD      | 1          | Chittagong | 84     | seat of a first-order administrative division | Point         |   91.83168|  22.33840|          76|          85| 645d890dde2bce1092338f0cbc7af011 |
 
-Geoparser.io typically assumes two mentions of the same name appearing so closely together in the same input text refer to the same place. So, because it saw "`Hyderabad`" (India) in the first sentence, it assumes "`Hyderabad`" in the second sentence refers to the same city. Also, "`Islamabad`" is an alternate name for Chittagong, which has a higher population than Islamabad (Pakistan) and is closer to Hyderabad (India).
+Geoparser.io typically assumes two mentions of the same name appearing
+so closely together in the same input text refer to the same place. So,
+because it saw “`Hyderabad`” (India) in the first sentence, it assumes
+“`Hyderabad`” in the second sentence refers to the same city. Also,
+“`Islamabad`” is an alternate name for Chittagong, which has a higher
+population than Islamabad (Pakistan) and is closer to Hyderabad (India).
 
 Here is another example with a longer text.
 
@@ -197,20 +262,30 @@ knitr::kable(output4$results)
 | PH      | 1          | Cateel                     | 11     | populated place                      | Point         |   126.4533|   7.79139|         354|         360| d89e347a998b58c6a8e54bc9f9abc073 |
 | PH      | 1          | Boston                     | 11     | populated place                      | Point         |   126.3642|   7.87111|         365|         371| d89e347a998b58c6a8e54bc9f9abc073 |
 | PH      | 1          | Province of Davao Oriental | 11     | second-order administrative division | Point         |   126.3333|   7.16667|         375|         390| d89e347a998b58c6a8e54bc9f9abc073 |
+| PH      | 1          | Compostela                 | 11     | second-order administrative division | Point         |   126.1167|   7.68333|         435|         445| d89e347a998b58c6a8e54bc9f9abc073 |
 | PH      | 1          | Compostela Valley          |        | valley                               | Point         |   125.9586|   7.60755|         449|         467| d89e347a998b58c6a8e54bc9f9abc073 |
 | PH      | 1          | Cateel River               | 11     | stream                               | Point         |   126.4533|   7.78750|         602|         614| d89e347a998b58c6a8e54bc9f9abc073 |
 
 What can I do with the results?
 ===============================
 
-You might want to map them using [leaflet](https://rstudio.github.io/leaflet/) or [ggmap](https://cran.r-project.org/package=ggmap) or anything you like. The API website provides [suggestions of use](https://geoparser.io/uses.html) for inspiration.
+You might want to map them using
+[leaflet](https://rstudio.github.io/leaflet/) or
+[ggmap](https://cran.r-project.org/package=ggmap) or anything you like.
+The API website provides [suggestions of
+use](https://geoparser.io/uses.html) for inspiration.
 
 Meta
 ----
 
--   Please [report any issues or bugs](https://github.com/ropensci/geoparser/issues).
+-   Please [report any issues or
+    bugs](https://github.com/ropensci/geoparser/issues).
 -   License: GPL
--   Get citation information for `geoparser` in R doing `citation(package = 'geoparser')`
--   Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+-   Get citation information for `geoparser` in R doing
+    `citation(package = 'geoparser')`
+-   Please note that this project is released with a [Contributor Code
+    of
+    Conduct](https://github.com/ropensci/geoparser/blob/master/CONDUCT.md).
+    By participating in this project you agree to abide by its terms.
 
 [![ropensci\_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)

@@ -10,6 +10,8 @@
 
 ## Release summary
 
+* Fix invalid URL in README.
+
 * Fix error caused by a namespace issue
 
 * Change the behavior of geoparser_key() such that if no key is provided and
