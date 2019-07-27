@@ -1,3 +1,5 @@
+# geoparser (development version)
+
 # geoparser 0.1.2
 
 * Fix error caused by a namespace issue
